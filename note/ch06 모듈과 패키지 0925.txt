@@ -1,0 +1,14 @@
+ch06. 모듈과 패키지
+
+1절 파이썬 표준 모듈 사용
+	(1) import A		(A 모듈 로드)
+	(2) from A import B	(A 패키지 안의 B 모듈 로드)
+	(2-1) from A.B import C	(A 패키지 안의 B 모듈 안의 C 로드)
+	(3) import A as B		(A 모듈을 B 이름으로 로드)
+	(4) from A import B as C 	(A 패키지 안의 B 모듈을 C 이름으로 로드)
+	(4-1) from A.B impor C as D	(A 안의 B 모듈 안의 C 함수를 D 이름으로 로드)
+
+2절 패키지
+	__init__.py 포함한 모듈(폴더)
+
+3절 패키지 설치 및 삭제
