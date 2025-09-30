@@ -1,0 +1,29 @@
+9장 파일 I/O(입출력)
+
+1절 텍스트(txt) 파일 I/O
+	with open('filepath(상대경로/절대경로)', 'w|r|a', encoding) as f: #기본인코딩 CP949
+		list변수 = f.readlines() / 문자변수 = f.read()
+		f.write(저장할 문자) / f.writelines(list변수)
+
+2절 pickle(pickle, pkl, data) 파일 I/O
+	with open('filepath(상대경로/절대경로)', 'wb|rb|ab') as f:
+		객체리스트변수 = pickle.load(f) → read (Input)
+		pickle.dump(객체리스트변수, f) → write (Output)
+
+3절 CSV 파일 I/O
+	with open('filepath(상대경로/절대경로)', 'w|r|a', encoding) as f:
+		reader = csv.reader(f) → csv 파일을 list data로 read
+		writer = csv.writer(f) 
+		→ writer.writerows(list데이터) →  list data를 csv 파일로 write 
+		dic_reader = csv.DictReader(f) → dictionary data로 read
+		dic_writer = csv.DictWriter(f)
+		→ dic_writer.writeheader(); dic_writer.writerows(list)
+
+4절 JSON 파일 I/O
+	with open('filepath(상대경로/절대경로)', 'w|r|a', encoding) as f:
+		list변수 = json.load(f) → 딕셔너리로 읽기
+		객체리스트변수 = json.load(f, object_hook=함수명) 
+			딕셔너리를 객체로 return하는 함수↑
+		json.dump(리스트변수, f, [ensure_ascii, indent])
+		json.dump(객체리스트변수, f, default=함수명, [ensure_ascii, indent])
+			객체를 딕셔너리로 return하는 함수↑
