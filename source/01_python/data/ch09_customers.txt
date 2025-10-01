@@ -1,4 +1,4 @@
-홍길동, 010-9999-9999, k@hong.com, 30, 5, vvip
-유길동, 010-5432-2222, y@hong.com, 20, 2, 가칠해
-신림동, 010-8888-8888, s@song.com, 33, 3, 글쎄
-홍길동, 010-7777-7777, h@hong.com, 33, 4, vip
+김군, 010-1234-1234, iao@gmail.com, 20, 1, awef
+최군, 010-1242-4435, popiao@gmail.com, 20, 4, wefa
+권양, 010-4444-2222, dd@gmail.com, 27, 5, vvip
+조양, 010-5555-3333, yur@gmail.com, 24, 5, vip
