@@ -1,0 +1,46 @@
+Pandas 데이터프레임과 시리즈 핵심 요약
+
+1. Pandas 패키지
+    - NumPy 기반 데이터 분석 라이브러리로, 2차원 데이터프레임과 1차원 시리즈 제공
+    - 장점: 데이터 생성, 파일 입출력, 부분 추출, 크기 변경, 병합, 결측치 처리 등
+2. 데이터프레임 생성
+    - 딕셔너리 리스트, 리스트, CSV/JSON 파일로부터 생성 가능
+    - pd.DataFrame(data=d), [pd.read]_csv(), [pd.read]_json()
+    - 외부 패키지에서 가져오기: sklearn, statsmodels, seaborn의 datasets 활용
+3. 이름 지정
+    - 열 이름: df.columns = ['이름', '나이', ...]
+    - 행 이름: df.index = ['동', '서', ...] 또는 df.set_index('이름', inplace=True)
+4. 부분 데이터 조회
+    - 단일 열: df['Name'] 또는 [df.Name]
+    - loc[행이름, 열이름]: 라벨 기준 조회, 슬라이싱 포함(to 포함)
+    - iloc[행번호, 열번호]: 위치 기준 조회, 슬라이싱(to 미포함)
+    - 조건 조회: df[df['Age'] >= 23], df[df['Name'].isin(['홍길동', '홍길남'])]
+5. 데이터 삭제/추가
+    - 삭제: df.drop('중', axis=0), df.drop(['Name', 'Email'], axis=1)
+    - 추가: df['nickname'] = '귀요미', df['favorite_no'] = [3, 2, 7, None, 12]
+6. 병합과 연결
+    - df1.merge(df2, how='inner/left/right/outer'): 공통 키로 병합
+    - pd.concat([df1, df2], axis=0/1): 상하/좌우로 데이터 연결
+7. 정렬
+    - 행/열 이름: df.sort_index(axis=0/1)
+    - 값 기준: df.sort_values(by='Age') 또는 df.sort_values(by=['Age', 'Birth'], ascending=[True, False])
+8. 기초 통계 분석
+    - df.min(), df.max(), df.mean(), df.median(), df.describe()
+    - df.quantile(): 분위수 계산, 이상치 탐지
+    - df.corr(): 상관계수, df.cov(): 공분산
+9. 데이터 그룹화 및 집계
+    - df.groupby('Species').sum(): 종별 합계
+    - df.pivot_table(index='Species', aggfunc='mean'): 피벗 테이블
+10. 데이터 구조 변경
+    - Wide→Long: df.melt(id_vars=['Month', 'Day'])
+    - Long→Wide: df.pivot_table(index=['Month','Day'], columns='변수명', values='값')
+11. 함수 적용
+    - apply(func, axis): 데이터프레임/시리즈에 함수 적용
+    - applymap(func): 데이터프레임 각 요소에 함수 적용
+    - map(func): 시리즈 각 요소에 함수 적용
+12. 결측치 처리
+    - df.fillna(0), df.fillna(method='ffill/bfill'), df.fillna(df.mean())
+    - df.dropna(), df.dropna(subset=['name']), df.dropna(how='all')
+13. 시리즈(1차원)
+    - 생성: pd.Series([1000,2000,3000], index=['mango', 'apple', 'banana'])
+    - 데이터프레임 변환: [s.to]_frame(name='price')

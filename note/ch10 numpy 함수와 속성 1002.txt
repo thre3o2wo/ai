@@ -1,12 +1,12 @@
 NumPy 패키지의 함수와 속성
-- 배열 속성
+1. 배열 속성
 	dtype : 요소들의 type
 		astype(타입) : 요소 타입 변경
 	itemsize : 요소의 byte size
 	ndim : 차원수(축수)
 	size : 요소 개수
 	shape : 배열의 구조(튜플)
-- 배열 생성
+2. 배열 생성
 	np.array(obj, dtype, copy=T/F)
 	np.zeros(tup, dtype)
 	np.ones(tup, dtype)
@@ -24,10 +24,10 @@ NumPy 패키지의 함수와 속성
 	resize() : -1 qnfrk
 	T, transpose(): 전치행렬
 	ravel(), flatten() : 1차원 변경
-- 배열 연산
+3. 배열 연산
 	요소별 연산, 행렬곱(@, 단위행렬 np.eye(size)), 집계함수(전체/축별, sum, min, max, mean, var, std)
 	범용함수(np.add, np.multiply, ...), 브로드캐스팅
-- 배열 합치기
+4-1 배열 합치기
 	np.vstack(tup) : 수평
 	np.hstack(tup) : 수직
 	np.dstack(tup) : 열끼리 (짝지어) 합침
@@ -38,9 +38,29 @@ NumPy 패키지의 함수와 속성
 	np.c_[a, b, c] : column으로 쌓아서 합침 (1차원을 2차원으로)
 	1차원배열[:, np.newaxis] == 1차원배열.reshape(-1,1) == np.expand_dims(a, axis=1)
 		: 1차원 배열을 2차원 열벡터로 변환
-- 배열 분리하기
+4-2 배열 분리하기
 	np.vsplit(ary, indices_or_sections) : 첫 번째 축 따라 분할
 	np.hsplit(ary, indices_or_sections) : 두 번째 축 따라 분할
 	np.dsplit(ary, indices_or_sections) : 3차원 이상에서 3번째 차원을 나눔
 	np.split(ary, indices_or_sections, axis=?) : axis=0 == vsplit / axis=1 == hsplit / axis=2 == dsplit
 	np.array_split(ary, indices_or_sections, axis=?)  : 균일히 나눠지지 않는 정수로도 split 가능
+
+5. 인덱싱과 슬라이싱
+
+- 기본 인덱싱: `a[0,1]`(2차원에서 0행1열)
+- 슬라이싱: `a[:2,1:3]`(0~1행, 1~2열)
+- 인덱스 배열: `a[[0,5,9]]`(0,5,9번째 요소 선택)
+- 불리언 인덱싱: `a[a>15]`(조건에 맞는 요소 선택)
+
+6. 복사와 뷰
+
+- 할당(`b = a`): 같은 객체 참조
+- 뷰(`c = a.view()`): 얕은 복사, 데이터 공유
+- 깊은 복사(`d = a.copy()`): 데이터 복제, 독립적
+
+7. 선형대수
+
+- 역행렬: `np.linalg.inv()`
+- 방정식 풀기: `np.linalg.solve()`
+- 단위행렬: `np.eye()`
+- 회귀분석: `wb = np.linalg.inv(X.T @ X) @ X.T @ Y`
