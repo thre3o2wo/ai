@@ -1,0 +1,5 @@
+﻿/* 2.css : 디자인 영역(StyleSheet)*/
+body {
+    background-color: lightyellow; /*배경색*/
+    font-size: 32pt; /*글씨 크기*/
+}

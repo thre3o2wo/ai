@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head><!--head : 설정 정보-->
+    <meta charset="utf-8" /> <!--메타데이터-->
+    <title>첫 HTML 예제</title> <!--제목표시줄-->
+    <style> /*디자인 영역(CSS)*/
+        body{
+            background-color:lightyellow; /*배경색*/
+            font-size:32pt; /*글씨 크기*/
+        }
+    </style>
+    <script> /* 동적인 부분(JavaScript) */
+        name = prompt("이름은?", "홍길동"); // 파이썬의 name = input('이름은?')과 같은 역할. 취소하면 'null' 문자열
+        if (name != 'null') {
+            document.write(name + '님 반갑습니다.<br>');
+        }
+    </script>
+</head>
+<body>
+    <!--body 부분 : 웹 문서에 출력될 정보-->
+    Hello, World!<br />
+    안녕하세요.<br />
+    오늘부터 웹 표준과 HTML 수업 시작입니다.
+</body>
+</html>
