@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        table {
+            margin: 50px auto; /*바깥쪽 여백*/
+            border-collapse: collapse;
+        }
+        td, th {
+            padding: 5px 10px; /*안쪽 여백*/
+        }
+        tr{
+            border-top: 1px solid green;
+            border-bottom: 1px solid green;
+        }
+    </style>
+    <script>
+        function chk() {
+            // submit 안 일어난 조건 : 작성자 ""일 때
+            if (frm.name.value == '') {
+                alert('작성자명은 필수 입력 사항입니다.');
+                frm.name.focus(); //커서 깜빡임 표시
+                return false; // submit 임시 block
+            }
+            return true; // submit 진행
+        }
+    </script>
+</head>
+<body>
+    <form action="" name="frm" onsubmit="return chk()">
+        <table>
+            <caption><h2>게시판</h2></caption>
+            <tr>
+                <td>
+                    제목
+                </td>
+                <td>
+                    <input type="text" name="title" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    작성자
+                </td>
+                <td>
+                    <input type="text" name="author" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    본문
+                </td>
+                <td>
+                    <textarea name="content" cols="34" rows="5"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    첨부파일
+                </td>
+                <td>
+                    <input type="file" name="filename" />
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    <input type="submit" /> <!--value(def)="제출"-->
+                    <input type="reset" /> <!--value(def)="초기화"-->
+                </th>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

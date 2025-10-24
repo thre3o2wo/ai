@@ -1,0 +1,11 @@
+﻿body
+{
+    table {background-color: red;}
+    tr {background-color: yellow;}
+    tr:hover {background-color: lightgreen;}
+    caption {background-color: lightyellow;}
+td {
+    padding: 5px 10px 5px 10px;
+    text-align: center;
+}
+}

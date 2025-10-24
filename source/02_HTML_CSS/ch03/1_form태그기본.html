@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        table{
+            border: 1px solid gray;
+            /* 테이블을 브라우저 중앙에 위치*/
+            width: 280px;
+            margin: 50px auto; /*바깥쪽 여백*/
+        }
+        td, th {
+            padding: 5px 10px; /*안쪽 여백*/
+        } 
+    </style>
+</head>
+<body>
+    NICKNAME <input type="text" name="nickname" value="form 태그 밖의 input은 전달 X"/>
+    <form action="https://www.daum.net">
+        <!--get method로는(def) ID 111 PW 222 입력 시
+        <!--https://www.daum.net/?id=111&pw=222로 이동-->
+        <table>
+            <tr>
+                <td align="right">
+                    ID
+                </td>
+                <td>
+                    <input type="text" />
+                           <!--name="id"--> 
+                           <!--parameter name 없는 input은 전달 X-->
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    PW
+                </td>
+                <td>
+                    <input type="password" name="pw" />
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    <input type="submit" value="Log In" />
+                </th>
+            </tr>
+        </table>
+        
+    </form>
+</body>
+</html>
