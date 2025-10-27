@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style> /* 위부터 아래로 차례차례 적용 */
+        *{ /*전체선택자 = 페이지 초기화 용도 : 전체 페이지의 디자인을 초기화. CSS 최상단에 작성*/
+           margin: 0;
+           padding: 0;
+           color:saddlebrown;
+        }
+        header, nav, section, footer{
+            border: 1px solid gray;
+            width: 500px;
+            margin: 2px auto; /* 좌우 여백을 나눔*/
+        }
+        /*ul li 메뉴를 수평으로*/
+        nav ul{ overflow:hidden; } /*수평으로 하고자 하는 태그의 부모단에 적용*/
+        nav ul li{
+            float: left;
+            list-style: none; 
+            /*margin:1px 25px;*/
+            width: 125px;
+            text-align: center;
+        }
+        section{
+            clear: both; /* float 속성을 clear. overflow: hidden을 했으면 생략 가능*/
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>00 주식회사</h1>
+    </header>
+    <nav>
+        <ul>
+            <li>회사소개</li>
+            <li>서비스소개</li>
+            <li>고객센터></li>
+            <li>공지사항</li>
+        </ul>
+    </nav>
+    <section>
+        <p>
+            CSS 선택자란
+            웹페이지의 특정 부분을 선택하여, 태그의 속성을 변경하는 목적 이용
+        </p>
+        <p>
+            지방자치단체는 주민의 복리에 관한 사무를 처리하고 재산을 관리하며, 법령의 범위안에서 자치에 관한 규정을 제정할 수 있다. 국회의원이 회기전에 체포 또는 구금된 때에는 현행범인이 아닌 한 국회의 요구가 있으면 회기중 석방된다.
+            대통령은 국가의 독립·영토의 보전·국가의 계속성과 헌법을 수호할 책무를 진다. 대한민국의 주권은 국민에게 있고, 모든 권력은 국민으로부터 나온다.
+        </p>
+    </section>
+    <footer>
+        서울시 xx구 xx로 xxx-xx. ㅁㅁ빌딩 2~3층 
+    </footer>
+</body>
+</html>

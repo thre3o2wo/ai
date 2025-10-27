@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <form action="">
+        <!--[action] 안 적으면 '내 페이지'로 [method] = [get](def)-->
+        <table>
+            <tr>
+                <td>아이디</td>
+                <td>
+                    <input type="hidden" name="data" value="숨겨서보내고싶은데이터" />
+                    <input type="text" name="id" size="9" />
+                    <!--입력 강제하려면 <input> 내에 [required] 추가
+                ("radio" 타입은 선택지 중 하나에만, 보통 첫 번째에)
+                ("checkbox" 타입은 JavaScript로 구현)-->
+                    <input type="button" value="중복확인" /> <!--click action에 따라 작용하므로 → JavaScript로 구현-->
+                </td>
+            </tr>
+            <tr>
+                <td>비밀번호</td>
+                <td>
+                    <input type="password" name="pw" />
+                    <!--"password" type은 마스킹 효과-->
+                </td>
+            </tr>
+            <tr>
+                <td>전화번호</td>
+                <td>
+                    <input type="tel" name="phone1" size="1" /> -
+                    <input type="tel" name="phone2" size="1" /> -
+                    <input type="tel" name="phone3" size="1" /> <!--"tel" type은 모바일에서 키패드 호출 기능-->
+                </td>
+            </tr>
+            <tr>
+                <td>경력</td>
+                <td>
+                    <input type="number" name="career" min="0" max="70" <!--"number" 타입은 숫자만 입력, 화살표 표시-->
+                </td>
+            </tr>
+            <tr>
+                <td>이메일</td>
+                <td>
+                    <input type="email" name="email" /> <!--"email" type은 자동 형식 검사-->
+                </td>
+            </tr>
+            <tr>
+                <td>사진</td>
+                <td>
+                    <input type="file" name="filename" />
+                </td>
+            </tr>
+            <tr>
+                <td>성별</td>
+                <td>
+                    <input type="radio" name="gender" value="m" /> 남
+                    <input type="radio" name="gender" value="f" /> 여
+                    <!--"radio" 타입은 선택지. parameter [name]을 동일하게 해야 같은 항목분류로 데이터 전달-->
+                </td>
+            </tr>
+            </tr>
+            <tr>
+                <td>사용 언어</td>
+                <td>
+                    <input type="checkbox" name="lang" value="kor" /> 한국어
+                    <input type="checkbox" name="lang" value="eng" /> 영어
+                    <input type="checkbox" name="lang" value="chi" /> 중국어
+                    <!--"checkbox" type은 0개 이상 중복 선택 가능-->
+                </td>
+            </tr>
+            <tr>
+                <td>국적</td>
+                <td>
+                    <select name="nation">
+                        <!--<select>는 드롭다운 기능-->
+                        <option value="usa">미국</option>
+                        <option value="kor" selected="selected">대한민국</option>
+                        <option value="chi">중국</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>좋아하는 음식</td>
+                <td>
+                    <select name="food" multiple="multiple" size="3"> 
+                        <!-- [multiple] 사용 시 ctrl+click으로 복수 선택 가능-->
+                        <option>볶음밥</option>
+                        <option>탕수육</option>
+                        <option>주먹밥</option>
+                        <option>불고기</option>
+                        <option>순두부</option>
+                        <option>비빔밥</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>자기소개</td>
+                <td>
+                    <textarea name="intro" cols="25" rows="3">간략한 자기소개를 입력하세요. </textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>생년월일</td>
+                <td>
+                    <input type="date" name="birth" />
+                </td>
+            </tr>
+            <tr>
+                <td>본인 사이트</td>
+                <td>
+                    <input type="url" name="git" />
+                </td>
+            </tr>
+            <tr>
+                <td>좋아하는 색상</td>
+                <td>
+                    <input type="color" name="color" />
+                </td>
+            </tr>
+            <tr>
+                <td>좋아하는 정도</td>
+                <td>
+                    0 <input type="range" name="range" min="0" max="100" step="10" value="50" /> 100
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    <input type="submit" value="입력" />
+                    <input type="reset" value="초기화" />
+                </th>
+            </tr>
+        </table>
+        </form>
+
+    </body>
+    </html>

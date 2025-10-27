@@ -18,10 +18,13 @@
         }
     </style>
     <script>
-        function chk() {
-            // submit 안 일어난 조건 : 작성자 ""일 때
-            if (frm.name.value == '') {
-                alert('작성자명은 필수 입력 사항입니다.');
+        function chk() { // submit 안 일어난 조건 : 작성자 ""일 때
+            //if (!frm.name.value.trim()) // " "모두 제거한 것이 빈 스트링(!False)
+            //{ // trim() : python의 strip()과 같은 기능
+            //        alert('작성자명은 필수 입력 사항입니다.');
+            if (frm.name.value.trim().length < 2) // 실 입력 글자가 2자 미만이면 alrert
+            {            
+                alert('작성자명은 2글자 이상 입력이 필수입니다.');
                 frm.name.focus(); //커서 깜빡임 표시
                 return false; // submit 임시 block
             }

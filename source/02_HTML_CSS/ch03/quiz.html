@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        td {
+            text-align: center
+        }
+
+        span {
+            color: #ff0000
+        }
+
+        header, footer {
+            text-align: center
+        }
+    </style>
+    <script>
+        function chk() {
+            if (frm.user_name.value.length < 2) {
+                alert('이름은 2글자 이상 입력 필수입니다.');
+                frm.user_name.focus();
+                return false;
+            }
+            else if (frm.user_id.value.length < 4) {
+                alert('ID는 4글자 이상 입력 필수입니다.');
+                frm.user_id.focus();
+                return false;
+            }
+            else if (frm.user_pw.value == '') {
+                alert('비밀번호는 필수 입력 사항입니다.');
+                frm.user_pw.focus();
+                return false;
+            }
+            else if (frm.user_pw.value != frm.user_chk.value) {
+                alert('비밀번호를 확인하세요.');
+                frm.user_pw.value = '';
+                frm.user_chk.value = '';
+                frm.user_pw.focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>회원가입</h1>
+    </header>
+    <div id="join_content"
+        <form action="" name="frm" onsubmit="return chk()">
+            <fieldset>
+                <legend>필수입력</legend>
+                <table>
+                    <tr>
+                        <td><label for="user_name">이 름<span><sup>*</sup></span></label></td>
+                        <td>
+                            <input type="text"
+                                   name="user_name"
+                                   id="user_name"
+                                   placeholder="이름은 2글자 이상"
+                                   autofocus="autofocus"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="user_id">아이디<span><sup>*</sup></span></label></td>
+                        <td>
+                            <input type="text" name="user_id" placeholder="ID은 4글자 이상" id="user_id" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>비밀번호<span><sup>*</sup></span></td>
+                        <td>
+                            <input type="password" name="user_pw" id="user_pw" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>비번확인<span><sup>*</sup></span></td>
+                        <td>
+                            <input type="password" name="user_chk" id="user_chk" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>전화<span><sup>*</sup></span></td>
+                        <td>
+                            <input type="text"
+                                   name="user_phone"
+                                   id="user_phone"
+                                   placeholder="xx-xxx-xxxx/000-0000-0000"
+                                   required="required"
+                                   pattern="\d{2,3}-?\d{3,4}-?\d{4}"
+                                   title="올바른 전화번호 형식이 아닙니다." />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>이메일<span><sup>*</sup></span></td>
+                        <td>
+                            <input type="text"
+                                   name="user_email"
+                                   id="user_email"
+                                   placeholder="id@domain.com 또는 co.kr"
+                                   pattern="\w+@\w+(\.\w+){1,2}"
+                                   title="올바른 이메일 형식이 아닙니다." />
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+            <fieldset>
+                <legend>추가 입력 사항</legend>
+                <table>
+                    <tr>
+                        <td>결혼여부</td>
+                        <td>
+                            <input type="radio" name="user_married" value="y" /> 기혼
+                            <input type="radio" name="user_married" value="n" /> 미혼
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>자식</td>
+                        <td>
+                            <input type="checkbox" name="user_child" value="son" /> 아들
+                            <input type="checkbox" name="user_child" value="dau" /> 딸
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>지역</td>
+                        <td>
+                            <select name="user_location">
+                                <option value="seoul">서울</option>
+                                <option value="gyeong">경기</option>
+                                <option value="inchn">인천</option>
+                                <option value="chung">충청</option>
+                                <option value="daejn">대전</option>
+                                <option value="gang">강원</option>
+                                <option value="jeon">전라</option>
+                                <option value="gwang">광주</option>
+                                <option value="kyeong">경상</option>
+                                <option value="daegu">대구</option>
+                                <option value="busan">부산</option>
+                                <option value="jeju">제주</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+            <p>
+                <center>
+                    <input type="submit" value="가입" />
+                    <input type="reset" value="취소" />
+                </center>
+            </p>
+        </form>
+    <footer>
+        <hr />
+        <p>
+            서울시 서대문구 신촌로 141, 은하빌딩 203호<br />
+            Copyright © XX All rights reserved
+        </p>
+    </footer>
+</body>
+</html>

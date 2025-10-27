@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<!-- 유효성 검사
+    (1) JavaScript 사용-->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+        function chk() {
+            if (frm.id.value.length < 4) {
+                alert('ID는 4글자 이상 입력 필수입니다.');
+                frm.id.focus(); //커서 이동
+                return false; //submit 미이행
+            }
+            else if (frm.pw.value == '') {
+                alert('비밀번호는 필수 입력 사항입니다.');
+                frm.pw.focus();
+                return false;
+            }
+            else if (frm.pw.value != frm.pwChk.value) {
+                alert('비밀번호를 확인하세요.');
+                frm.pw.value = ''; //입력된 비밀번호 input 내용 지우기
+                frm.pwChk.value = '';
+                frm.pw.focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <form action="" name="frm" onsubmit="return chk()">
+        <table>
+            <tr>
+                <td>ID</td>
+                <td>
+                    <input type="text" name="id" placeholder="4자리" />
+                </td>
+            </tr>
+            <tr>
+                <td>PW</td>
+                <td>
+                    <input type="password" name="pw" placeholder="비밀번호 일치" />
+                    <!--body form에 required 입력 시, 의도된 유효성 검사 이전에 required 작동해 잘 사용하지 않음.-->
+                </td>
+            </tr>
+            <tr>
+                <td>PW 확인</td>
+                <td>
+                    <input type="password" name="pwChk" placeholder="비밀번호 확인" />
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    <input type="submit" value="가입" />
+                </th>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
