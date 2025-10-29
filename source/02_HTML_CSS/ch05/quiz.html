@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+    <title></title>
+    <style>
+        * {margin: 0; padding: 0;}
+        a {
+            text-decoration: none;
+            color: darkmagenta;
+            font-weight: bold;
+            display: block;
+        }
+        #container {
+            margin: 0 auto; width: 800px;
+            border: 1px solid gray;
+            overflow: hidden;
+            position: relative;
+        }
+        #container div{
+            margin: 5px;
+            padding: 3px;
+            border: 1px solid black;
+            box-sizing: border-box;
+        }
+        #header, #footer {
+            height: 100px;
+            background-color: yellow;
+            text-align: center;
+            line-height: 100px;
+            font-weight: bold;
+        }
+        #nav {
+            height: 120px;
+            margin: 5px auto;
+            text-align: center;
+            font-weight: bold;
+            position: relative;
+            z-index: 1000;
+        }
+        #nav ul {
+            width: 610px;
+            margin: 15px auto;
+            overflow: hidden;
+        }
+        #nav ul li {
+            position: relative;
+            width: 120px; margin: 1px;
+            background-color: pink;
+            list-style: none;
+            text-align: center;
+            font-size: .8em;
+            line-height: 50px;
+            float: left;
+        }
+        #nav ul li:nth-child(1) {
+            border-radius: 20px 0 0 20px;
+        }
+        #nav ul li:nth-child(5) {
+            border-radius: 0 20px 20px 0;
+        }
+        .submenu {
+            display: none;
+            position: absolute;
+            top: 50px;
+            left: 0;
+            width: 120px;
+            z-index: 100;
+        }
+        #nav ul li:hover .submenu {
+            display: block;
+        }
+        .submenu li:last-child {
+            border-radius: 0 0 20px 20px;
+        }
+        #content {
+            overflow: hidden;
+        }
+        #cntnt_left, #cntnt_right {
+            height: 300px;
+            text-align: center;
+            font-weight: bold;
+            float: left;
+        }
+        #cntnt_left {width: 560px;}
+        #cntnt_right {width: 200px;}
+        #bgi {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width:100%;
+            height:100%;
+            margin: 0;
+            padding: 0;
+            background-image: url("ch05/sulhyun.jpg");
+            background-position: center;
+            background-size: cover;
+            opacity: 0.5;
+            z-index: -1;
+        }
+    </style>
+    <script></script>
+</head>
+<body>
+    <div id="container">
+        <div id="header">HEADER</div>
+        <div id="nav">NAVIGATION
+            <ul>
+                <li><a href="#menu1">menu1</a>
+                    <ol class="submenu">
+                        <li><a href="#submenu1-1">submenu1-1</a></li>
+                        <li><a href="#submenu1-2">submenu1-2</a></li>
+                        <li><a href="#submenu1-3">submenu1-3</a></li>                    
+                    </ol>
+                </li>
+                <li><a href="#menu2">menu2</a>
+                    <ol class="submenu">
+                        <li><a href="#submenu2-1">submenu2-1</a></li>
+                        <li><a href="#submenu2-2">submenu2-2</a></li>
+                        <li><a href="#submenu2-3">submenu2-3</a></li>                    
+                    </ol>
+                </li>
+                <li><a href="#menu3">menu3</a></li>
+                <li><a href="#menu4">menu4</a></li>
+                <li><a href="#menu5">menu5</a></li>
+            </ul>
+        </div>
+        <div id="content">
+            <div id="cntnt_left">CONTENT</div>
+            <div id="cntnt_right">BANNER</div>
+        </div>
+        <div id="footer">FOOTER</div>
+        <div id="bgi"></div>
+    </div>
+</body>
+</html>
