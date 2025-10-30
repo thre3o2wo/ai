@@ -1,0 +1,64 @@
+Ch. 5 CSS 속성들
+
+- '어떻게' 꾸밀지(속성)에 대한 핵심 내용. 특히 웹 페이지의 레이아웃(Layout)을 잡는 position과 float가 가장 중요한 주제.
+
+---
+
+1. 박스 모델과 단위 (Box Model & Units)
+
+: 요소의 크기와 여백을 결정.
+
+- margin (바깥 여백) vs padding (안쪽 여백):
+    - margin: 요소의 테두리(border) 바깥쪽 여백입니다. margin: 0 auto;는 블록 요소를 수평 중앙 정렬하는 핵심 기술입니다.
+    - padding: 요소의 테두리(border) 안쪽 여백입니다.
+- CSS 단위:
+    - px (Pixel): 모니터 화소 기준의 절대 단위입니다.
+    - %: 부모 요소의 크기를 기준으로 하는 상대 단위입니다.
+    - em: 부모 요소의 글꼴 크기를 기준으로 하는 상대 단위입니다.
+- box-sizing: border-box; (필수):
+요소의 width와 height를 계산할 때, padding과 border를 포함시킨다. 이 속성을 쓰지 않으면 width: 100px; padding: 10px;일 때 실제 총 너비가 120px가 되어 레이아웃이 복잡해짐. (quiz.html에서도 container div에 적용.)
+
+---
+
+2. 폰트와 배경 (Fonts & Background)
+
+- font-family (글꼴): 시스템 폰트, 웹 폰트, 로컬 폰트 등을 지정한다.
+- @font-face (로컬 폰트):
+사용자 PC에 폰트가 없어도, 서버에 폰트 파일(.ttf 등)을 두고 url() 함수로 불러와 사용할 수 있게 한다.
+- background-image: url(...); (배경 이미지):url() 함수를 이용해 요소의 배경 이미지를 지정합니다. (quiz.html의 배경 이미지(bgi)에 사용.)
+- 텍스트 속성:
+    - text-align: center;: 글자를 수평 중앙 정렬.
+    - line-height: 줄 간격을 의미하지만, 요소의 height 값과 동일하게 맞추면 텍스트를 수직 중앙 정렬하는 트릭으로 사용된다. (quiz.html의 header에 적용.)
+
+---
+
+3. 요소 표시 방식 (Display & Visibility)
+
+요소를 어떻게 보여줄지, 숨길지 결정한다.
+
+- display (핵심):
+    - block: div, p 등. 한 줄 전체를 차지하며, width/height 값을 가질 수 있음.
+    - inline: span, a 등. 자기 내용만큼의 공간만 차지하며, width/height 값을 가질 수 없음.
+    - inline-block: inline처럼 옆으로 흐르지만, block처럼 width/height 값을 가질 수 있음. (매우 유용)
+    - none: 요소를 화면에서 완전히 사라지게 하고, 차지하던 공간도 없어짐. (메뉴 숨기기에 사용)
+- visibility: hidden;:요소를 투명하게 만들어 보이지 않게 하지만, 차지하던 공간은 그대로 남는다. (display: none;과의 차이점)
+- opacity (투명도):요소의 투명도를 0.0 (투명) ~ 1.0 (불투명) 사이로 조절합니다. (quiz.html의 배경 이미지에 0.5로 적용.)
+
+---
+
+4. 레이아웃 (Layout)
+
+Ch.5의 가장 중요한 부분으로, 요소의 위치와 배치를 다룸.
+
+- float (띄우기):
+    - float: left; (또는 right): 요소를 공중에 띄워 왼쪽(오른쪽)에 차례대로 붙인다. (10_float.html의 이미지와 텍스트 배치, quiz.html의 메뉴(li)를 가로로 나열하는 데 사용.)
+    - overflow: hidden; (Float 해제): float된 자식 요소를 감싸는 부모 요소에 이 속성을 적용하면, 부모가 자식의 높이를 인식하게 되어 레이아웃이 깨지는 것을 막아준다. (필수 테크닉)
+- position (위치 지정):
+요소의 위치를 잡는 핵심 속성. (09_position...html 파일들에서 집중적으로 연습.)
+    - static: 기본값. HTML 코드 순서대로 쌓는다.
+    - relative (상대 좌표): 자기 원래 위치를 기준으로 top, left 등으로 조금씩 이동. 가장 중요한 용도는 absolute 자식의 기준점(Base)이 되는 것.
+    - absolute (절대 좌표): position: relative/absolute/fixed가 설정된 가장 가까운 조상을 기준으로 top, left 위치를 잡는다. 조상이 없으면 <body>가 기준.
+    - fixed (고정 좌표): 브라우저 화면(Viewport)을 기준으로 top, left 위치를 잡는다. 스크롤을 내려도 화면 그 자리에 고정된다. (예: 맨 위로 가기 버튼)
+- z-index (쌓임 순서):position으로 요소가 겹칠 때, 이 숫자 값이 클수록 더 위에(앞에) 표시됩니다. (quiz.html에서 서브 메뉴가 배경 이미지나 다른 콘텐츠보다 위에 뜨도록 z-index: 1000;을 사용.)
+
+quiz.html은 position: relative(컨테이너, 메뉴)와 position: absolute(서브 메뉴, 배경), float(메뉴 아이템), z-index를 모두 활용한 종합 실습입니다.
