@@ -1,0 +1,7 @@
+/* .content 프린트용 */
+#wrap .content {
+    color: darkgreen;
+    padding: 10px;
+    text-align: justify; /*양쪽 정렬*/
+    font-size: 1.2em;
+}

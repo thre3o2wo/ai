@@ -1,0 +1,17 @@
+.yeon-sung-regular {
+    font-family: "Yeon Sung", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+#wrap {
+    font-family: 'Yeon Sung';
+    width: 500px; margin: 10px auto;
+    border: 1px solid gray;
+    padding: 10px;
+}
+#wrap .title {
+    text-align: center;
+    text-decoration: underline;
+    margin: 20px;
+}
+#wrap hr {border: 1px solid red;}
