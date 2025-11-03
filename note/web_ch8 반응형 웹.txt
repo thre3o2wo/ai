@@ -1,0 +1,53 @@
+Ch 8. 반응형 웹
+
+	~ Ch 6 : PC 화면에 전용으로 맞춘 고정형(Fixed) 레이아웃
+	Ch 7 : 모바일 화면에 전용으로 맞춘 유동형(Fluid) 레이아웃
+
+	Ch. 8 반응형 웹(Responsive Web)은 이 두 가지를 합친 개념. 즉, 하나의 HTML 파일로 PC, 태블릿, 모바일 등 모든 기기의 화면 크기에 '반응'하여 레이아웃을 최적화된 형태로 스스로 바꾸게 하는 현대 웹의 핵심 기술이다.
+
+---
+
+1. @media 규칙 (미디어 쿼리) : CSS의 IF문
+
+반응형 웹을 구현하는 가장 핵심적인 키워드.
+@media 규칙은 "만약 ~한 조건이라면, { } 안의 CSS를 적용해라"라는 조건문(IF문) 역할을 합니다.
+
+- 키워드: @media, min-width (최소 너비), max-width (최대 너비)
+- 역할: 기기의 화면(viewport) 너비를 감지하여, 특정 너비 구간에서만 작동하는 CSS 스타일을 지정할 수 있습니다.
+- 실습 적용 (3_반응형웹.html):
+    - PC용 (1201px 이상): @media screen and (min-width: 1201px)
+        - 콘텐츠 폭을 width: 800px로 고정하고, margin: 3px auto로 중앙 정렬함.
+        - 메뉴 5개를 모두 보여주기 위해 width: 20%로 설정함.
+    - 태블릿용 (900px ~ 1200px): @media screen and (min-width: 900px) and (max-width: 1200px)
+        - 콘텐츠 폭을 width: 99% (유동형)로 변경하고, 배경색을 lightgreen으로 바꿈.
+        - 메뉴 4개만 보여주기 위해 4번째 메뉴(li:nth-child(4))를 display: none;으로 숨김.
+    - 모바일용 (899px 이하): @media screen and (max-width: 899px)
+        - 배경색을 lightpink로 변경하고, 글자 크기를 키움(font-size: 1.5em;).
+        - 메뉴를 3개만 보여주기 위해 짝수 번째 메뉴(li:nth-child(2n))들을 display: none;으로 숨기고, 남은 3개의 폭을 width: 33%로 재조정함.
+
+---
+
+2. 중단점 (Breakpoints)
+
+레이아웃이 '꺾이는' 지점, 즉 @media 규칙이 적용되는 특정 화면 너비 값(예: 1200px, 899px)을 '중단점' 또는 '분기점'이라고 부릅니다. 이 지점들을 기준으로 CSS 코드를 구간별로 작성하는 것이 반응형 웹 디자인의 핵심.
+
+---
+
+3. 매체별 스타일시트 (CSS Rules)
+
+@media 규칙이 화면 크기에 반응한다면, 이 개념은 아예 다른 매체(Media)에 반응하는 것입니다. 1_link.html과 2_규칙.html에서 이를 연습함.
+
+- 키워드: media="screen", media="print", @import
+- 역할: 사용자가 웹 페이지를 '모니터 화면(screen)'으로 볼 때와 '종이로 인쇄(print)'할 때 필요한 스타일이 다르다는 것을 구분하여 적용한다.
+- 실습 적용 (1_link.html, 2_규칙.html):
+    - <link media="screen">: content_screen.css를 연결하여, 화면에서는 배경색을 darkgreen으로, 글자색을 white로 보여 줌.
+    - <link media="print">: content_print.css를 연결하여, 인쇄(Ctrl+P) 시에는 잉크 절약을 위해 배경색은 없애고 글자색을 darkgreen으로, 글자 크기는 더 크게(1.2em) 변경함.
+- CSS 파일 관리:
+    - <link> 태그로 CSS 파일을 분리하는 것이 표준 방식.
+    - @import url(...) 규칙은 CSS 파일 안에서 또 다른 CSS 파일을 불러오는 기능이지만, <link> 방식에 비해 성능 상 단점이 있어 지금은 잘 사용하지 않습니다.
+
+---
+
+총평
+
+	이전 챕터까지 배운 HTML 시맨틱 태그, CSS 선택자, 박스 모델, float, position 등의 모든 기본기를 바탕으로, @media 규칙이라는 강력한 도구를 추가하여 어떤 환경에서도 깨지지 않는 유연한 웹사이트를 만드는 방법을 학습. 모든 CSS 학습의 최종 목표라고 할 수 있는 매우 중요한 챕터.

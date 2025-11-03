@@ -1,0 +1,51 @@
+Ch 6. 웹페이지 실습 평가
+
+
+Ex1. 쇼핑몰 실습 (shoppingmall.html)
+
+	공개 웹사이트(Public Website)의 가장 표준적인 레이아웃을 구현
+
+	1. 학습 의도 (Learning Goals)
+
+	- 고정 폭, 중앙 정렬 레이아웃의 완벽한 이해 (width: 1000px; margin: 0 auto;).
+	- float 기반 레이아웃의 마스터. (메뉴, 배너, 상품 목록 등 모든 것을 float로 배치)
+	- float 사용 시 부모 요소의 높이가 무너지는 문제를 overflow: hidden;으로 해결하는 핵심 테크닉 습득.
+	- @font-face 및 Google Fonts를 이용한 커스텀 폰트 적용.
+	- HTML 구조(header, content, footer)와 CSS 스타일의 완전한 분리.
+
+	2. 사용된 핵심 기능 및 특징
+
+	- HTML (구조): header, content, footer의 시맨틱한 구조를 div와 id로 명확하게 구분함.
+	- CSS (레이아웃):
+    	- 페이지 전체의 중앙 정렬을 위해 header .gnb ul, header .logo, header .lnb ul, content, footer 등 거의 모든 주요 컨테이너에 width: 1000px;과 margin: 0 auto;를 적용함.
+    	- float: left; / float: right;: 가로 메뉴(gnb, lnb, hitmenu의 li들), 섹션 1의 배너 2개(slide_banner, side_banner), 상품 목록(ul li), 푸터의 3단 영역 등 페이지의 모든 수평 배치를 float로 해결함.
+    	- overflow: hidden;: float를 사용한 요소들의 부모(예: header .gnb ul, content .section1, footer 등)에 적용하여, float된 자식들의 높이를 부모가 인식하도록 했습니다. (float 레이아웃의 필수 공식)
+	- CSS (스타일 및 선택자):
+   		- 페이지 초기화: { margin: 0; padding: 0; }사용.
+    		- 폰트: 로컬 폰트(@font-face)와 웹 폰트('Lobster')를 모두 활용.
+    		- 상품 목록(4열): width: 24%와 margin: 5px 0 5px 0.8%를 사용해, 여백을 포함한 4열 그리드를 구현.
+    		- 구조 선택자: :first-child, :last-child (히트 메뉴 모서리 둥글게), footer div:nth-child(-n+3) (푸터 상위 3개 div 선택) 등 고급 선택자를 사용.
+
+Ex2. 마이페이지 실습 (웹서비스개발.html)
+
+	'로그인한 회원'이 사용하는 서비스 내부(Application)의 표준적인 레이아웃을 구현
+
+	1. 학습 의도 (Learning Goals)
+	- LNB (Left Navigation Bar, 사이드바) + 콘텐츠 레이아웃 구조 학습.
+	- float를 이용한 2단 컬럼(Column) 레이아웃 구현.
+	- 폼(Form) 요소 스타일링: HTML <form>과 <table>을 활용하여 '개인정보 변경' 폼을 만들고 CSS로 꾸미는 방법 학습.
+	- 특정 메뉴 항목(예: 현재 페이지)을 시각적으로 강조하는 CSS 기법 학습.
+
+	2. 사용된 핵심 기능 및 특징
+	- HTML (구조):
+    		- nav 태그를 nav_left와 nav_right로 분리하여 헤더 메뉴를 양쪽으로 배치함.
+    		- content 영역을 lnb(사이드바)와 my_content(주요 내용)로 나누는 2단 구조를 사용함.
+    		- 개인정보 변경 폼의 레이아웃을 <table> 태그를 이용해 구성. (전통적으로 많이 사용되던 폼 레이아웃 방식)
+	- CSS (레이아웃):
+    		- 쇼핑몰과 동일하게 width: 1000px; margin: 20px auto;로 중앙 정렬 레이아웃을 사용함.
+    		- nav의 메뉴들은 float: left;와 float: right;로 양쪽 끝에 배치함.
+    		- lnb와 my_content를 각각 float: left;로 지정하여, 2단 레이아웃을 구현.
+    		- content에 overflow: hidden;을 적용하여 float를 해제함.
+	- CSS (스타일 및 선택자):
+    		- 폼 스타일링: 속성 선택자(input[type='text'], input[type='submit'] 등)를 활용해 <input> 태그들을 세밀하게 디자인함.
+    		- 현재 메뉴 강조: lnb ul li:nth-child(4) 선택자를 사용해, 4번째 메뉴('개인정보변경')에만 background-color와 font-weight를 주어 현재 위치임을 표시함.

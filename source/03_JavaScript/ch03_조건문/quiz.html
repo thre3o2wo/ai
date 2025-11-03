@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+    <title></title>
+    <style>p, h3 {text-align: center;}</style>
+    <script>
+        function chk() {
+            // 수를 입력했는지 확인
+            let num1 = Number(frm.num1.value);
+            let num2 = Number(frm.num2.value);
+            if(!frm.num1.value) { // 빈 스트링 입력하면 !frm.num1.value가 True
+                alert('첫 번째 수를 입력하세요');
+                frm.num1.focus();
+                return false;
+            } else if(!frm.num2.value) {
+                alert('두 번째 수를 입력하세요');
+                frm.num2.focus(); 
+                return false; //함수 끊기
+            }
+            // 몇 번째 수가 얼마나 더 큰지 docment.body.innerHTML에 추가
+            let difference = (num1>num2) ? num1-num2 : num2-num1;
+            let msg;
+            if (num1>num2) { 
+                msg = '첫 번째 수가 ' + difference + '만큼 더 크다';
+            } else if (num2>num1) {
+                msg = '두 번째 수가 ' + difference + '만큼 더 크다';
+                // `<h3>두 번째 수가 ${difference}만큼 더 크다</h3>`
+            } else {
+                msg = '두 수는 같다';
+            }
+            document.body.innerHTML += '<p><h3>' + msg + '</h3></p>';
+            // alert 메시지도 출력
+            alert(msg);
+            return false; //제출 방지
+        }
+    </script>
+</head>
+<body>
+    <form name="frm" onsubmit="return chk()">
+        <fieldset>
+            <p>첫 번째 수 : <input type="number" name="num1"></p>
+            <p>두 번째 수 : <input type="number" name="num2"></p>
+            <p><input type="submit" value="결과"></p>
+        </fieldset>
+    </form>
+</body>
+</html>

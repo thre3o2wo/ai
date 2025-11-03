@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+    <title></title>
+    <script>
+        let cnt = 0; // 점수 입력 횟수
+        let right = 0; // 제대로 숫자 입력한 횟수 (0~100 사이의 숫자)
+        let wrong = 0; // 제대로 숫자 입력하지 않은 횟수
+        let sum = 0; // 점수 누적 변수
+    // 반복분
+        while(true) { //break 아니면 계속 돌기
+        //while(confir('누적할래?')) 해도 되겠네.
+        //누적할래 yes or no
+            let answer = confirm('누적할래?');
+            if(!answer) {break;} //취소하면 break
+        //숫자 받기
+            let scoreStr = prompt('누적할 점수?(0~100 사이 숫자)', '0');
+            if(scoreStr===null) {break;} //취소하면 break
+            let score = Number(scoreStr);
+            cnt++; //취소 안 하고 뭐라도 입력했으면 count
+        //계산하기
+            if(isNaN(score) || 0 > score || score > 100 || scoreStr.trim()==="") { // score가 범위 벗어나거나, 숫자형 아니거나
+                wrong++;
+            } else { // score가 범위 안에 있는 숫자형
+                right++;
+                sum += score;
+            }
+            // document.writeln(cnt+'회차 입력값:'+scoreStr+'<br>') //입력값 확인용
+        }
+        //while문 종료 시(취소 누른 후) 아래 출력
+        document.writeln(`${cnt}번 입력<br>누적점수: ${sum}<br>점수를 제대로 입력한 횟수: ${right}<br>점수를 잘못 입력한 횟수: ${wrong}`);
+    </script>
+</head>
+<body>
+</body>
+</html>

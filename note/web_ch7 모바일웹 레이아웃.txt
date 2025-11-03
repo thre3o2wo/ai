@@ -1,0 +1,48 @@
+Ch. 7 모바일웹 레이아웃
+
+1. Viewport (뷰포트): 모바일 인식의 시작
+
+가장 중요하고, 모바일 웹 제작 시 반드시 첫 줄에 선언해야 하는 코드.
+- 키워드: meta name="viewport"
+- 역할: 스마트폰 브라우저에게 "이 페이지는 모바일용으로 만들었으니, 데스크톱 페이지처럼 억지로 축소해서 보여 주지 말고, 기기(device)의 화면 너비에 맞춰 1:1 비율로 보여 줘"라고 알려주는 설정.
+- 핵심 속성:
+    - width=device-width: 웹페이지의 가로 폭을 기기의 실제 스크린 너비로 설정한다.
+    - initial-scale=1.0: 페이지를 처음 로드할 때 확대/축소 비율을 1.0 (즉, 100%)로 설정한다.
+
+---
+
+2. 유동형 레이아웃 (Fluid Layout)
+
+모바일 화면은 크기가 다양하기 때문에, px 단위가 아닌 비율(%) 단위로 레이아웃을 구성해야 한다.
+- 키워드: 퍼센트(%) 기반 너비 설정
+- 역할: 부모 요소의 너비를 기준으로 자식 요소의 너비를 비율로 정한다. 이렇게 하면, 기기의 가로 폭이 어떻든 항상 그에 맞는 비율로 레이아웃이 유연하게 조절된다.
+- 실습 적용 사례:
+    - lnb 메뉴: 6개의 메뉴를 동일하게 나누기 위해 width: 16.66666% (100% / 6)로 설정함.
+    - 2열 이미지: section1의 이미지 박스들을 width: 50%로 설정하여 한 줄에 2개씩 배치함.
+    - 검색 창: input[type=text]의 너비를 width: 100%로 설정해 헤더 영역을 꽉 채움.
+
+---
+
+3. 체크박스 핵 (Checkbox Hack) : CSS 전용 토글 메뉴
+
+모바일에서 흔히 보이는 '햄버거 메뉴'를 JavaScript 없이 CSS만으로 구현하는 실용적 테크닉. test_toggle.html과 ex.html에서 이 원리 실습.
+- 키워드: :checked, ~ (일반 형제 선택자), <label for="">
+- 작동 원리:
+    1. <input type="checkbox" id="toggle">를 HTML에 추가하고 display: none;으로 숨김.
+    2. 메뉴 버튼 이미지(햄버거 아이콘)를 <label for="toggle">로 감쌉니다. (Label을 클릭하면 연결된 id="toggle" 체크박스가 체크/해제된다.)
+    3. 실제 메뉴인 #lnb는 평소에 display: none;으로 숨겨 둔다.
+    4. #toggle:checked ~ #lnb { display: block; } 이라는 핵심 CSS를 추가.
+    5. 해석: "만약 id="toggle" 체크박스가 체크(:checked)되면, 그 *다음에* 오는 형제 요소(~) 중 #lnb를 찾아 display: block; (보이게) 하라."
+
+---
+
+4. 모바일 UI 스타일링 기법
+
+작은 화면에서 정보를 효과적으로 보여주기 위한 CSS 속성들입니다.
+- 텍스트 말 줄임 (Ellipsis):
+    - 역할: 한 줄로 표시하기에 너무 긴 텍스트(예: 기사 제목)를 ...로 줄여서 표시한다.
+    - 키워드: white-space: nowrap;, overflow: hidden;, text-overflow: ellipsis;
+    - 조건: 이 속성이 적용되려면 해당 요소가 display: block; 또는 inline-block이어야 한다.
+- position을 이용한 헤더 구성:
+    - #logo_wrap에 position: relative;를 부여해 기준점으로 삼는다.
+    - 메뉴 아이콘(.menu)과 내 정보 아이콘(.myinfo)에 position: absolute;를 사용해, 각각 left: 0과 right: 0에 정확히 배치.

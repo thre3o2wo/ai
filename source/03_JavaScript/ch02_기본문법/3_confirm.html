@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+    <title></title>
+    <script>
+        // 확인: true / 취소: false
+        answer = confirm('확인 취소 중 선택 : 수강 신청하시겠습니까?');
+        document.writeln('결과: ' + answer + ' - 타입: ' + typeof(answer) + '<br>')
+        /* 비교 연산자(==) : 값이 같은지 여부(타입 일치하지 않으면 타입 일치시킨 후 같은지 여부 확인)
+           비교 연산자(===): 값과 타입이 같은지 여부*/
+        if(answer === '') { // == 말고 ===로 작성하면, '취소' 해도 '확인을 누르셨네' 뜨네
+            document.writeln('취소를 누르셨네');
+        } else {
+            document.writeln('확인을 누르셨네');
+        };
+        // 라인 복사 : shft + alt + 화살표↑/↓
+        // 라인 이동 : alt + 화살표↑/↓
+        // 라인 삭제 : ctrl + shft + k
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
