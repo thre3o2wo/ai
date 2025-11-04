@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+    <title></title>
+    <script>
+        // let fn = () => alert('hello'); // 변수에 함수 할당 
+        let person = {
+            'name' : '홍길동',
+            'age' : 20,
+            'eat' : function(food){ // 속성에 함수 할당
+                let msg = this.age + '살 ' + this.name + '님은 ' + food + '을(를) 먹습니다.';
+                alert(msg);
+            },
+        };
+        // person.eat('빙수');
+        document.write(person.name + '님 ' + person['age'] + '<br>');
+        document.write(person.eat + '<br>'); // msg 말고, 정의된 속성 코드 그대로 출력
+        document.writeln(person + '<br>'); // [object Object] 출력됨
+        // python에서 __str__ 오버라이딩해, print(class객체)한 것처럼
+        document.writeln(person.toString())
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

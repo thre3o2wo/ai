@@ -1,0 +1,60 @@
+Ch. 3 조건문
+
+- 코드의 흐름을 제어하는 방법
+
+---
+
+1. if... else if... else (핵심 조건문)
+
+가장 기본적이고 유연한 조건문. 코드의 흐름을 '만약 ~라면, (아니고) 만약 ~라면, 그 외 모든 경우엔 ~'으로 분기.
+
+- 키워드: if, else if, else
+- 실습 적용:
+    - 1_if문.html 파일에서는 new Date().getHours()로 현재 시간을 가져와, if (hour < 12) 조건 하나로 '오전'과 '오후'(else)를 구분함.
+    - quiz.html 파일에서는 if (num1 > num2), else if (num2 > num1), else를 사용해 '첫 번째 수가 큼', '두 번째 수가 큼', '같음'이라는 세 가지 경우를 모두 처리.
+
+---
+
+2. switch (다중 선택 조건문)
+
+하나의 변수 값을 여러 개의 특정 case(사례)와 비교할 때 if-else if가 길게 나열되는 것을 깔끔하게 대체할 수 있다.
+
+- 키워드: switch, case, break, default
+- 실습 적용:
+    - 2_switch문.html 파일에서는 prompt로 입력받은 수를 2로 나눈 나머지(su%2)를 기준으로 case 0:, case 1:, case -1: 등으로 분기하여 짝/홀수를 판별.
+    - 3_요일에따른배경색지정.html 파일은 switch문의 가장 고전적인 예시. new Date().getDay() (0~6 사이의 숫자 반환) 값을 case 0:(일요일)부터 case 6:(토요일)까지 7가지로 분기해 배경색을 바꿈.
+- 핵심 문법: 각 case의 끝에 break;를 사용해야 합니다. 사용하지 않으면, 일치하는 case 이후의 모든 case 코드가 전부 실행되는 'fall-through' 현상이 발생.
+
+---
+
+3. 삼항 연산자 (Ternary Operator)
+
+간단한 if-else 구문을 한 줄로 축약해 변수에 값을 할당할 때 유용. (Python의 A if 조건 else B와 동일.)
+
+- 키워드: ?, :
+- 문법: let 변수 = (조건) ? (참일 때 값) : (거짓일 때 값);
+- 실습 적용: 4_삼항연산자.js와 quiz.html에서 두 수의 차이(절댓값)를 구할 때 사용함.
+    - let difference = (num1 > num2) ? num1 - num2 : num2 - num1;
+
+---
+
+4. 조건문을 위한 도구들 (내장 객체)
+
+조건문 자체뿐만 아니라, '무엇을' 조건으로 삼을지 데이터를 가져오는 내장 객체들도 함께 학습함.
+
+- new Date(): 현재 날짜와 시간 정보를 가진 객체를 생성한다.
+    - .getHours(): 현재 '시'를 가져온다 (0~23).
+    - .getDay(): 현재 '요일'을 가져온다 (0=일요일, 1=월요일...).
+- document.body: HTML의 <body> 태그를 직접 제어한다.
+    - .style = '...' 또는 .bgColor = '...': switch문의 결과로 CSS 속성을 직접 변경.
+    - .innerHTML += '...': quiz.html에서 조건문의 결과를 HTML 문자열로 만들어 <body>에 추가.
+
+---
+
+5. quiz.html을 통해 본 실전 응용
+
+이번 챕터의 퀴즈(quiz.html)는 Ch.2와 Ch.3의 지식을 모두 활용한 종합 예제.
+
+- 폼 유효성 검사: Ch.2의 'Falsy' 개념을 활용해 if (!frm.num1.value) (입력값이 비어있으면 true)로 빈칸을 검사함.
+- 형 변환: Number(frm.num1.value)를 사용해 prompt나 input으로 받은 '문자열'을 '숫자'로 변환해야만 num1 > num2 비교가 올바르게 작동한다.
+- 이벤트 제어: onsubmit="return chk()"와 함수 마지막의 return false;를 사용해, 폼이 '제출'(새로고침)되는 기본 동작을 막고 JavaScript가 결과를 처리하도록 함.

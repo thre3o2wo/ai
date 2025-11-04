@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+    <title></title>
+    <script>
+    //배열
+        var arr = [1, 2, '홍길동']; // {'0':1, '1':2, '2':'홍길동'}
+        // 출력하고자 하면: 일반 for문, for-in, for-of, forEach() 활용
+        for(let idx in arr) {
+            document.write(`${idx} - 타입: ${typeof(idx)} - 값: ${arr[idx]}<br>`);
+        } //idx 타입 string임. (arguments 처럼)
+    //객체
+        document.write('<br>');
+        var obj = {'name': '홍길동', 'age': 20};
+        // 출력하고자 하면: for-in문만 사용 가능
+        for(let key in obj) {
+            document.write(key + " : " + obj[key] + '<br>'); 
+            //key 자체가 ''포함하고 있어, obj.key 못 써
+        }
+        obj.address = '서울시 관악구'; //객체 속성추가
+        obj.hobby = '서핑';
+        document.writeln('<h4>속성 추가 후</h4>');
+        for(let key in obj) {
+            document.write(key + " : " + obj[key] + '<br>'); 
+        }
+        delete(obj.age);
+        document.writeln('<h4>속성 삭제 후</h4>');
+        for(let key in obj) {
+            document.write(key + " : " + obj[key] + '<br>'); 
+        }
+    </script>
+</head>
+<body></body>
+</html>
