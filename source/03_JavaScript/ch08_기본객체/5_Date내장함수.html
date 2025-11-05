@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+    <title></title>
+    <script src="dateGetNumberOfDays.js"></script>
+    <script>
+        // 날짜시간 차이를 연월일로 계산해 주는 함수를 만들고 싶은 상황
+        let now = new Date(); // 지금
+        document.writeln('now : ' + now + '<br>');
+        document.writeln('날짜와 시간 : ' + now.toLocaleString() + '<br>')
+        document.writeln('날짜 : ' + now.toLocaleDateString() + '<br>')
+        document.writeln('시간 : ' + now.toLocaleTimeString() + '<br>')
+        let openday = new Date(2025, 8, 11, 9, 30, 0); //개강일(2025.9.11 09:30:00)
+        day = now.getNumberOfDays(openday);
+        document.writeln(day + '일 지남');
+    </script>
+</head>
+<body></body>
+</html>

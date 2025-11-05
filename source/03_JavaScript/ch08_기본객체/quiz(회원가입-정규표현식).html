@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+    <title></title>
+    <style>
+        table {width:350px; margin:20px auto; padding:20px 10px;}
+        table, input[type='text'], input[type='password'] {
+            border: 1px solid #385d81;
+            outline: 1px solid #385d81;
+            padding: 2px;
+        }
+        input[type='submit'], input[type='reset'], input[type='button'], button{
+            background-color: #385d81;
+            border:0; outline:0;
+            color:white; 
+            border-radius: 3px;
+            padding:10px 20px;
+            margin:5px;
+        }
+        td, th { padding:5px 10px; text-align:center;}
+    </style>
+    <script>
+        const namePattern = /[가-힣]{2,10}/;
+        const mailPattern = /^\w+@\w+(\.\w+){1,2}$/;
+        //(?=.*[]) : []안의 것 어디든 하나만 있어라
+        const pwPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{4,}$/;
+        const joinCheck = () => {
+            const uName = document.getElementById('name');
+            const mail = document.getElementById('mail');
+            const pw = document.getElementById('pw');
+            const pwChk = document.getElementById('pwChk');
+            // 1. .test() 사용법 수정: 정규식.test(문자열)
+            if (!namePattern.test(uName.value)) { 
+                alert("입력하신 이름 형식을 다시 확인하세요 (한글 2~10자).");
+                uName.focus();
+                return false; 
+            } else if (!mailPattern.test(mail.value)) {
+                alert("입력하신 이메일 주소를 다시 확인하세요.");
+                mail.focus();
+                return false; 
+            } else if (!pwPattern.test(pw.value)) {
+                alert("올바른 비밀번호 형식이 아닙니다 (4자 이상, 영문/숫자/특수문자 포함).");
+                pw.focus();
+                return false;
+            } else if (pw.value != pwChk.value) {
+                alert("입력하신 두 비밀번호가 일치하지 않습니다.");
+                pwChk.focus();
+                return false;
+            }
+            return true; 
+        };
+    </script>
+</head>
+<body>
+    <form action="#" name="frm" id="frm" onsubmit="return joinCheck()">
+        <table>
+            <tr>
+                <th>이름</th>
+                <td>
+                <input type="text" name="name" id="name" placeholder="특수문자와 숫자 못 와" 
+                                autofocus="autofocus"/>
+                </td>
+            </tr>
+            <tr>
+                <th>메일</th>
+                <td><input type="text" name="mail" id="mail" placeholder="메일 형식에 맞추세요" /></td>
+            </tr>
+            <tr>
+                <th>비밀번호</th>
+                <td><input type="password" name="pw" id="pw" placeholder="특수문자,알파벳,숫자 포함" /></td>
+            </tr>
+            <tr>
+                <th>비밀번호</th>
+                <td><input type="password" name="pwChk" id="pwChk" /></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                <input type="submit" value="회원가입" />
+                <input type="reset" value="취소" />
+                <input type="button" value="로그인" />
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</body>
+</html>

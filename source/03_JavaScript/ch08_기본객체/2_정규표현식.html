@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+    <title></title>
+    <style></style>
+    <script>
+    /*
+    정규표현식
+
+    \d : 숫자와 매치. [0-9]와 동일
+    \D : 숫자가 아닌 것
+    \w : 영문자나 숫자[a-zA-Z0-9]와 동일
+    \W : 영문자나 숫자가 아닌 문자
+    . : 문자
+    \. : . (마침표)
+    \- : - (하이픈)
+    {2,} : 2번 이상 반복
+    {2, 4} : 2~4회 반복
+    ? : 0회 또는 1회
+    + : 1회 이상 반복
+    * : 0회 이상 반복
+
+    ex1. 전화번호 : 
+
+    02 888 7777 / 02)888-7777 / 028887777 / 010-9999-9999 / 010.9999.8888
+    → 0\d{1,2}[ \-\.)]?\d{3,4}[ \-\.]?\d{4}
+
+    ex2. Email : 
+
+    [abc12@naver.com](mailto:abc12@naver.com) / [abc12@sns.co.kr](mailto:abc12@sns.co.kr)
+    → \w+@\w+(\.\w+){1,2}
+
+    ex3. 주민등록번호 : 
+
+    890123-1234567 / 020123-3012345 / 890331 1122334
+    → \d{2}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|30|31)(\-| |\.)[1-4]\d{6}
+    */
+
+    var str = 'abcd@ef';
+    // 패턴
+    var numPattern = /[0-9]/; // 숫자 정규표현식 (/~~/ : 정규표현식 리터럴 구문
+    var latPattern = /[a-zA-Z]/; // 라틴알파벳(로마자) 문자 정규표현식
+    var korPattern = /[가-힣ㄱ-ㅎㅏ-ㅣ]/; // 한글 문자 정규표현식
+    var spePattern = /[~`!@#$%^&*()_\-+=\|\\\[\]{}'":;?\/<>,\.]/; //특수문자 패턴
+
+    // 정규표현식패턴.test(str) : str에 패턴이 포함되어 있는지 여부 T/F
+    document.writeln('str에 숫자 포함: '+ numPattern.test(str) + '<br>'); //F
+    document.writeln('str에 로마자 포함: '+ latPattern.test(str) + '<br>'); //T
+    document.writeln('str에 한글 포함: '+ korPattern.test(str) + '<br>'); //F
+    document.writeln('str에 특수문자 포함: '+ spePattern.test(str) + '<br>'); //T
+
+    // str.match(정규표현식패턴) : str이 패턴과 '매칭되는 문자열'과 '캡처그룹'을 배열로 return.
+    // 일치되지 않으면 return null
+    var emailPattern = /^\w+@\w+(\.\w+){1,2}$/; // ^시작, $끝
+    var email1 = "hong@hong.com";
+    var email2 = "hong@hong.com@abc";
+    document.writeln('email1 결과: '+email1.match(emailPattern)+'<br>');
+    document.writeln('email2 결과: '+email2.match(emailPattern)+'<br>');
+
+    // match 함수를 이용한 이메일 유효성 검사
+    if(email1.match(emailPattern)) {
+        document.writeln('email1은 메일 형식이 맞습니다.<br>');
+    } else {
+        document.writeln('email1은 메일 형식이 아닙니다.<br>');
+    }
+    if(email2.match(emailPattern)) {
+        document.writeln('email2는 메일 형식이 맞습니다.<br>');
+    } else {
+        document.writeln('email2는 메일 형식이 아닙니다.<br>');
+    }
+
+    // test 함수를 이용한 이메일 유효성 검사
+    if(emailPattern.test(email1)) {
+        document.writeln('email1은 메일 형식이 맞습니다.<br>');
+    } else {
+        document.writeln('email1은 메일 형식이 아닙니다.<br>');
+    }
+    if(emailPattern.test(email2)) {
+        document.writeln('email2는 메일 형식이 맞습니다.<br>');
+    } else {
+        document.writeln('email2는 메일 형식이 아닙니다.<br>');
+    }
+    </script>
+</head>
+<body></body>
+</html>

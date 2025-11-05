@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+    <title></title>
+    <style></style>
+    <script>
+        var arr1 = ['zoo', 'hong', 'kim', 'park', 'jung'];
+        var arr2 = [52, 100, 12, 94, 32, 2];
+        document.writeln('arr1 연결: '+arr1.join(', ') + '<br>');
+        // Array 조작 위해 깊은 복사
+        let originalArr = arr1.slice(); // 깊은 복사 방법 1
+        // .slice() 매개변수로 아무 값도 넣지 않으면, 전체를 추출
+        originalArr = [...arr1];        //깊은 복사 방법 2
+        originalArr = Array.from(arr1); //깊은 복사 방법 3
+        arr1.sort(); //ASCII코드 순으로 오름차순 정렬
+        document.writeln('원본(정렬 전): ' + originalArr + '<br>');
+        document.writeln('사본(정렬 후): ' + arr1 + ' (오름차순)<br>');
+        arr1.reverse(); //순서 반전
+        document.writeln('사본(정렬 후): ' + arr1 + ' (내림차순)<br>');
+        document.writeln('<hr>arr2(정렬 전): '+arr2+'<br>');
+        arr2.sort();
+        document.writeln('arr2(정렬 후): ' + arr2 + ' (ASCII 오름차순)<br>');
+        arr2.sort(function(left, right){
+            return left-right; //오름차순 정렬
+            //return right-left; //내림차순 정렬
+        });
+        document.writeln('arr2(정렬 후): ' + arr2 + ' (오름차순)<br>');
+        let top3 = arr2.slice(0,3); //0번째부터 3번째 앞까지 추출(깊은 복사)
+        document.write('top3: ' + top3);
+    </script>
+</head>
+<body></body>
+</html>

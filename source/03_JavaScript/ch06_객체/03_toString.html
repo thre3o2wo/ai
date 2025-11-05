@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+    <title></title>
+    <script>
+        let person = {
+            'name' : '홍길동', //속성변수
+            'age' : 20, //속성변수
+            'eat' : function(food){ // 메서드(화살표함수 사용 불가) this 안 써도 되는 곳에서 화살표 사용 가능
+                let msg = this.age + '살 ' + this.name + '님은 ' + food + '을(를) 먹습니다.';
+                alert(msg);
+            },
+            // python에서 __str__ 오버라이딩해, print(class객체)한 것처럼
+            'toString' : function() {
+                let output = '';
+                for(let key in this) {
+                    if (key!='eat' && key!='toString') { //함수속성변수 코드 출력 막기
+                        output += key + ' : ' + this[key] + '<br>';
+                    } //if문
+                } //for문
+                return output;
+            } //toString 오버라이딩
+        }; //person
+        document.writeln(person + '<br>')
+        person.nickname = '동에번쩍';
+        document.writeln('👇<br>' + person + '<br>');
+        person.hobby = '서핑';
+        person.address = '서울시 구로구';
+        document.writeln('👇<br>' + person + '<br>');
+    </script>
+</head>
+<body></body>
+</html>

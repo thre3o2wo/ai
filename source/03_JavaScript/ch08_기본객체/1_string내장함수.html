@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+    <title></title>
+    <style></style>
+    <script>
+        let str = '   abc @ AB cC @  '; // 자동적으로 String 문자열로 할당됨 
+        document.writeln('원본 : [' + str + ']<br>');
+        document.writeln('글자수 : ' + str.length + '<br>');
+        //연속된 공백이 출력되지 않아도 글자수로는 유효하네
+        document.writeln('글자연결 : [' + str.concat('끝') + ']<br>');
+        // str.substring(a, b) : a번째부터, b번째 앞까지. python의 str[a:b]와 같다.
+        // str.substring(a) : a번째부터 끝까지. python의 str[a:]와 같다.
+        document.writeln('3번째부터 ~ 6번째 앞까지 : [' + str.substring(3,6) + ']<br>');
+        // str.substr(a, b) : a번째부터 b개 글자 추출
+        document.writeln('3번째부터 ~ 6자 추출 : [' + str.substr(3,6) + ']<br>');
+        // str.indexof('a') : 좌측부터 a 탐색해 index return / lastindexof('a') : 우측부터
+        document.writeln('첫 @의 위치 : ' + str.indexOf('@') + '<br>');
+        document.writeln('마지막 @의 위치 : ' + str.lastIndexOf('@') + '<br>');
+        // 없는 요소의 indexof는 -1
+        document.writeln('첫 z의 위치 : ' + str.indexOf('z') + '<br>');
+        document.writeln('앞뒤 space 제거 : [' + str.trim() + ']<br>'); 
+        //python의 strip과 같네
+        document.writeln('대문자로 : [' + str.toUpperCase() + ']<br>');
+        document.writeln('소문자로 : [' + str.toLowerCase() + ']<br>');
+        document.writeln('@를 2로 변경 : [' + str.replace('@','2') + ']<br>'); 
+        // replace로 다 바뀌지 않고 처음 것만 바뀌네 
+        document.writeln('@를 2로 모두 수정 : [' + str.replaceAll('@','2') + ']<br>');
+        document.writeln('space 모두 제거 : [' + str.replaceAll(' ', '') + ']');
+    </script>
+</head>
+<body></body>
+</html>

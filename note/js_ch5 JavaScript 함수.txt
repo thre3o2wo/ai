@@ -1,0 +1,117 @@
+Ch. 5 함수
+
+함수는 JavaScript 프로그래밍의 "핵심 부품". 코드를 재사용 가능한 블록으로 묶어주는 기본 기능 외에도, JavaScript에서는 함수를 변수에 담거나 다른 함수의 인자로 넘기는 등 특별한 방식으로 사용한다.
+
+---
+
+1. 함수를 정의하는 두 가지 방법 (선언 vs 표현)
+
+JavaScript는 함수를 만드는 두 가지 주요 방식을 제공하며, 이 둘은 "실행 시점"에서 결정적 차이를 보인다.
+
+- 1) 선언적 함수 (Function Declaration):
+    - 형식: function func() { ... }
+    - 특징: 브라우저가 스크립트를 읽을 때, 선언적 함수를 가장 먼저 메모리에 올린다(Hoisting). 따라서 03_선언적함수.html 실습처럼 함수가 정의된 위치보다 *앞에서* func()를 호출해도 정상적으로 작동한다.
+- 2) 익명 함수 (Anonymous Function) / 함수 표현식:
+    - 형식: let funcVar = function() { ... };
+    - 특징: 이름이 없는 함수를 변수에 할당하는 방식. 변수에 할당하는 '코드'로 취급되므로, Hoisting(호이스팅)되지 않는다. 따라서 01_익명함수.html의 주석처럼 변수가 선언되기 *전에* 함수를 호출하면 오류가 발생한다.
+
+---
+
+2. 화살표 함수 (Arrow Function) [ES6+]
+
+02_화살표함수.js에서 집중적으로 연습한, 익명 함수를 더 짧고 간결하게 쓰는 현대적 문법.
+
+- 형식: function 키워드 대신 => (화살표)를 사용.
+- 특징:
+    - 매개변수 1개: a => { ... }처럼 () 소괄호 생략 가능.
+    - 명령어 1줄: a => console.log(a)처럼 {} 중괄호 생략 가능.
+    - return 1줄: a => a*a;처럼 {}와 return 키워드를 동시에 생략해야 한다.
+
+---
+
+3. 매개변수와 인자 (Parameters & Arguments)
+
+Python과 달리, JavaScript 함수는 선언된 매개변수 개수와 상관없이 인자를 더 많거나 적게 받는 것을 허용한다.
+
+- 1) 기본 매개변수 (Default Parameters):
+    - 형식: function pow(x=1, y=2) { ... }
+    - 역할: pow()처럼 인자 없이 호출 시 undefined 대신 설정된 기본값(1, 2)을 사용한다.
+- 2) 매개변수 불일치 (05_매개변수와return값.js):
+    - 인자가 더 많을 때: pow(5,2,1,10)처럼 초과된 인자(1, 10)는 무시된다.
+    - 인자가 더 적을 때: pow(5)처럼 전달되지 않은 매개변수 y는 undefined가 된다. for문의 cnt<=y가 false가 되어 1이 반환된다.
+- 3) 가변인자함수와 arguments 객체 (핵심):
+    - arguments 객체: (화살표 함수 제외) 모든 일반 함수 내부에서 사용할 수 있는, '전달된 모든 인자'가 담겨있는 배열과 유사한 객체.
+    - 실습 적용: 07_array.js와 08_sumAll 예제.html이 이 개념을 완벽하게 보여 준다.
+        - arguments.length를 사용해 인자의 개수에 따라 분기(0개, 1개, 2개 이상)한다.
+        - for(let data of arguments) 구문을 사용해 전달된 모든 인자를 순회하며 값을 처리한다.
+        - 06_가변인자함수.js에서는 JavaScript 내장 함수인 Array()가 바로 이 가변인자함수의 대표적인 예시임을 보여 준다.
+
+---
+
+4. 내부 함수 (Internal Function) : 이름 충돌 방지
+
+09_내부함수.html 실습은 매우 실무적인 문제를 다룬다.
+
+- 키워드: 스코프(Scope), 이름 충돌(Name Collision)
+- 개념: 함수 안에 또 다른 함수를 선언하는 것.
+- 왜 사용하나?
+    - 09_내부함수.html 예제처럼 개발자 A와 B가 똑같이 square라는 이름의 함수를 만들면, 나중에 로드된 B의 함수가 A의 함수를 덮어쓰게 된다.
+    - 해결: A가 자신의 pythagoras 함수 안에 square 함수를 '내부 함수'로 선언하면, 이 square는 pythagoras 함수 안에서만 쓸 수 있는 '전용 함수'가 된다.
+    - 결과: 바깥세상(Global Scope)에 있는 B의 square 함수와 충돌하지 않아, 두 함수 모두 안전하게 작동한다.
+
+---
+
+5. 콜백 함수 (Callback Function) : 함수의 인자화
+
+10_콜백함수.html에서 연습하신, JavaScript의 가장 중요한 개념 중 하나.
+
+- 키워드: Callback, 함수를 인자로 전달
+- 개념: "나중에 호출(Call Back)해 줘"라는 의미로, 다른 함수의 매개변수로 전달되는 함수 자체를 말한다.
+- 실습 적용:
+    - callTenTimes(callback) 함수는 "어떤 일이든 10번 반복"하는 기계.
+    - test 함수(콜백)는 "날짜를 출력"하는 부품입.
+    - callTenTimes(test)는 기계에 부품을 조립하는 것과 같다. callTenTimes는 callback 매개변수로 test 함수를 전달받아, 10번 반복하는 동안 test 함수를 10번 '콜백'한다.
+    - 주석 처리된 () => ...처럼, 익명 함수(화살표 함수)를 인자로 바로 넘기는 방식이 실무에서 더 흔하게 쓰인다.
+
+---
+
+6. 타이머 함수 : 비동기(Asynchronous) 처리의 시작
+
+JavaScript가 "일을 시켜놓고 기다리지 않는" 비동기 방식을 이해하는 첫걸음.
+
+- setTimeout(callback, ms):
+    - 일정 시간(ms) 후에 콜백 함수를 "단 한 번" 실행한다.
+    - clearTimeout(id)으로 예약된 실행을 취소할 수 있다.
+- setInterval(callback, ms):
+    - 일정 시간(ms)마다 콜백 함수를 "반복 실행"한다.
+    - clearInterval(id)으로 반복을 중지시킨다.
+
+---
+
+7. 비동기(Asynchronous)의 이해 (중요!)
+
+13_타이머주의점.html 실습은 이 개념을 명확히 보여 준다.
+
+- 키워드: 비동기(Asynchronous), 이벤트 루프(Event Loop)
+- 실행 순서: A → C → B
+- 이유:
+    1. document.writeln('A')가 실행된다. (출력: A)
+    2. setTimeout(() => { ... 'B' }, 0)을 만난다. 0초 후 실행하라는 뜻이지만, "즉시 실행"하라는 뜻이 아님.
+    3. JavaScript는 "B를 실행해 줘"라는 요청을 브라우저에게 맡기고, 기다리지 않고 다음 줄로 넘어감.
+    4. document.body.innerHTML += 'C'가 실행된다. (출력: C)
+    5. 스크립트의 모든 동기(Synchronous) 코드가 끝나면, 브라우저는 "아까 맡겨둔 B 작업, 이제 실행해도 돼"라고 B를 실행한다. (출력: B)
+
+---
+
+8. quiz.html : 타이머 종합 실습
+
+이번 챕터의 모든 개념이 담긴 종합 퀴즈.
+
+- 배열 활용: imgs와 colors 배열을 만들어 배경과 글자색을 관리한다.
+- setInterval (엔진): 1초(1000ms)마다 콜백 함수를 반복 실행한다.
+- 콜백 함수 (핵심 로직):
+    - sec++로 1초마다 초를 증가시킨다.
+    - sec % 3 (나머지 연산자)를 사용해 0, 1, 2를 순환하며 imgs와 colors 배열의 인덱스로 활용한다.
+    - document.body.style.backgroundImage와 document.body.style.color를 변경한다.
+    - innerHTML을 사용해 시간을 갱신한다.
+- setTimeout (정지 버튼): 10초(10000ms)가 지나면 setTimeout이 단 한 번 실행되어, clearInterval(id)을 호출해 setInterval을 멈춘다.

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+    <title></title>
+    <style></style>
+    <script>
+        //객체를 반환하는 함수
+        function regStudent(name, kor, mat, eng, sci) {
+            let resultObj = {
+                'name' : name,
+                'kor' : kor,
+                'mat' : mat,
+                'eng' : eng,
+                'sci' : sci,
+                'getSum' : function() {return this.kor + this.mat + this.eng + this.sci;},
+                'getAvg' : function() {return this.getSum()/4;},
+                'toString' : function() {
+                    let output = '';
+                    for(let key in this) {
+                        if (key!='getSum' && key!='getAvg' && key!='toString') {
+                            output += key + ' : ' + this[key] + ' &nbsp; ';
+                        } else if (key=='getSum' || key=='getAvg') {
+                            output += key.substring(3).toUpperCase()+' : '+this[key]()+' &nbsp; ';
+                        }
+                    } //for
+                    return output;
+                } //toString
+            }; //resultObj
+            return resultObj;
+        } //regStudent
+        let students = [regStudent('홍길동', 99, 90, 85, 95)];
+        students.push(regStudent('김길동', 80, 60, 80, 90));
+        students.push(regStudent('박길동', 82, 70, 60, 40));
+        students.push(regStudent('고길동', 81, 30, 90, 50));
+        students.push(regStudent('마길동', 85, 40, 50, 80));
+        students.forEach( (data, idx) => document.writeln(`${idx}번째 - ${data}<br>`))
+    </script>
+</head>
+<body></body>
+</html>

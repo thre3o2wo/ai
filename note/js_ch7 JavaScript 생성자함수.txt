@@ -1,0 +1,37 @@
+Ch. 7 생성자함수
+
+Ch.6에서는 makeStudent라는 '객체 공장 함수' 를 사용해 객체를 만들었다. 이번 Ch.7은 그보다 더 공식적이고(formal), Python의 class 키워드와 유사한 JavaScript의 전통적인 객체 생성 방식을 다룬다.
+
+---
+
+1. 생성자 함수와 new 키워드
+
+이전 챕터의 '객체 공장 함수'와 달리, '생성자 함수'는 객체를 생성(new)하기 위한 특수한 목적을 가진 함수.
+
+- 키워드: function Student(...), new, this
+- 개념:
+    1. 관례적으로 함수 이름을 대문자로 시작한다(예: Student).
+    2. new 키워드(new Student(...))와 함께 호출해야 한다.
+    3. new 키워드는 "1. 빈 객체({})를 만들고, 2. 그 객체를 this로 지정한 뒤, 3. 함수를 실행하고, 4. this를 반환"하는 4가지 일을 자동으로 처리한다.
+- this의 역할: this는 '새로 생성될 인스턴스(객체)'를 가리킨다. this.name = name; 은 "새로 만들 객체의 name 속성에 매개변수로 받은 name 값을 넣어라"는 뜻이다.
+
+---
+
+2. 프로토타입 (Prototype) : 메모리 효율화 (핵심)
+
+1_생성자함수.html 방식의 가장 큰 문제점은 new Student를 100번 호출하면, getSum, getAvg 같은 메서드(함수)도 100개가 똑같이 메모리에 복제된다는 것(메모리 낭비).
+
+- 키워드: Student.prototype.getSum
+- 개념: prototype은 "설계도" 또는 "모든 인스턴스가 공유하는 공용 사물함" 같은 개념.
+- 실습 적용: 2_생성자함수(prototype이용).html 실습처럼, 공통으로 사용할 메서드(getSum, getAvg 등)를 생성자 함수 *바깥*의 prototype 에 딱 한 번만 정의하면 된다.
+- 결과: 100개의 student 인스턴스는 각자 다른 속성값(name, kor...)만 가지고, 메서드는 Student.prototype이라는 공용 공간에 있는 함수 하나를 참조하여 사용한다. (메모리 효율 극대화)
+
+---
+
+3. class 키워드 (ES6) : 현대적인 방식
+
+3_class.js에서 실습한 class는 완전히 새로운 기능이 아니다. 위에서 설명한 '생성자 함수 + 프로토타입' 방식을 더 깔끔하고 읽기 쉽게 만든 '문법적 설탕(Syntactic Sugar)'이다.
+
+- constructor(...): Ch.7의 function Student(...)와 똑같은 역할. this.name = name;처럼 속성을 초기화한다.
+- 메서드: getSum() { ... }처럼 class 내부에 바로 함수를 정의하면, JavaScript가 알아서 Student.prototype.getSum = ...으로 자동 변환해 주므로, 훨씬 간결하다.
+- toString의 차이: 3_class.js의 주석처럼, 템플릿 리터럴(  ) 안에서 ${hong}처럼 사용할 때는 toString()이 자동 호출되지만, console.log(hong)처럼 객체 자체를 로깅할 때는 toString()이 자동 호출되지 않는 차이점이 있다.
