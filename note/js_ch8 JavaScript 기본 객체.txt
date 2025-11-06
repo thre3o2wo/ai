@@ -1,0 +1,48 @@
+Ch. 8 기본객체
+
+Ch.7 '생성자 함수'가 객체를 만드는 '틀(Class)'을 배우는 시간이었다면, Ch.8은 JavaScript가 미리 만들어서 제공하는 강력한 도구(Built-in Objects)들의 '사용 설명서'를 익히는 챕터.
+
+실습을 통해 String 객체의 메서드를 활용하고, 특히 Array.sort()의 동작 원리를 파고들어 Student 객체 배열을 정렬하는 고급 실습까지 수행했다.
+
+---
+
+1. String (문자열) 객체와 정규표현식 (Regex)
+
+- 키워드: .length, .indexOf(), .trim(), .replace(), .replaceAll(), .substring()
+- 개념: String 객체는 문자열을 다루는 다양한 메서드(기능)를 제공한다. 1_string내장함수.html 실습에서 Python의 .strip()과 같은 .trim(), [a:b] 슬라이싱과 유사한 .substring() 등을 연습함.
+- 핵심 응용 (Regex):
+    - 정규표현식(Regular Expression)은 문자열의 '패턴'을 검사하는 강력한 도구. quiz(회원가입-정규표현식).html은 이 개념의 실전 예제.
+    - /패턴/ (정규식 리터럴), [가-힣]{2,10} (패턴 정의), ^ (시작), $ (끝) 등을 사용했다.
+    - 패턴.test(문자열): quiz(회원가입-정규표현식).html의 joinCheck 함수에서 !namePattern.test(uName.value)처럼, 정규식 객체가 문자열을 검사하여 true / false를 반환하는 .test()의 사용법을 구현했다.
+
+---
+
+2. Array (배열) 객체 (가장 중요)
+
+배열을 다루는 강력한 메서드들을 제공하며, 특히 .sort()의 동작 방식이 핵심.
+
+- 키워드: .sort(), .slice(), .join()
+- .sort()의 함정 (ASCII 정렬):
+    - 3_Array내장객체.html 실습에서 arr2.sort()를 실행했을 때 [100, 12, 2, 32, 52, 94]가 출력되는 것을 확인했다.
+    - 이유: 기본 .sort()는 숫자가 아닌 문자(ASCII 코드) 기준으로 정렬하기 때문. ("100"의 "1"이 "2"보다 앞에 옴)
+- .sort()의 올바른 사용 (콜백 함수):
+    - 숫자나 객체를 제대로 정렬하려면, "정렬 기준"을 알려주는 콜백 함수를 인자로 넘겨야 한다.
+    - 숫자 오름차순: arr2.sort( (left, right) => left - right ); (결과가 음수면 left가 앞)
+    - 객체 배열 내림차순: 4_객체배열sort.html 실습이 이 예시. students.sort( (left, right) => right.getSum() - left.getSum() ); (결과가 양수면 right가 앞)
+- .slice(start, end) (복사/추출):
+    - .sort()와 달리 원본 배열을 변경하지 않고, 원하는 부분만 잘라서 새로운 배열을 반환한다.
+    - arr2.slice(0, 3)처럼 정렬 후 "Top 3"를 뽑거나, arr1.slice()처럼 배열 전체를 '깊은 복사(Deep Copy)'하는 용도로 유용하다.
+
+---
+
+3. Date와 Math 객체 (유틸리티)
+
+- Date 객체 (날짜/시간):
+    - new Date(): 현재 시간을 가진 객체를 생성한다.
+    - .getTime(): 1970년 1월 1일부터 현재까지의 시간을 밀리초(ms)로 반환합니다. 날짜 간의 간격을 계산할 때 사용되는 핵심 메서드.
+    - .toLocaleString(): 현재 지역의 시간 표기법으로 변환.
+- Math 객체 (수학 계산):
+    - Math.floor(): 소수점을 '내림'하여 정수를 만든다. dateGetNumberOfDays.js에서 밀리초를 '일' 단위로 바꿀 때 사용했다.
+    - Math.max(), Math.random() 등 new 없이 바로 사용하는 '정적(Static) 메서드'들을 제공한다.
+- Prototype 확장 (고급):
+    - dateGetNumberOfDays.js 파일은 Date.prototype.getNumberOfDays라는 커스텀 메서드를 'Date'라는 내장 객체에 추가하는 고급 기법을 보여 준다. 이로 인해 now.getNumberOfDays(openday)처럼 우리가 만든 함수를 마치 원래 있던 내장 함수처럼 쓸 수 있었음.

@@ -1,0 +1,79 @@
+Ch. 10 문서 객체
+
+Ch.9 '브라우저 객체 모델(BOM)'이 브라우저 창이나 주소창(window, location)을 다루는 것이었다면, Ch.10 '문서 객체 모델(DOM)'은 HTML 문서 내부의 태그(h1, div, img 등)들을 JavaScript로 제어하는, 웹 개발의 가장 핵심적인 기술.
+
+---
+
+1. DOM이란? (문서 객체 모델)
+
+- 키워드: Tree, Node (노드), 문서 객체
+- 개념: 브라우저가 HTML 문서를 읽을 때, 태그(<h1>)나 텍스트("HEADER") 같은 모든 요소를 '객체(Object)'로 만든다. 이 객체들은 <html>을 최상위 부모로 하는 '트리(Tree) 구조'로 정리되며, 이 트리 구조 자체 또는 트리의 각 요소를 '노드(Node)'라고 부른다 .
+- JavaScript의 역할: document 객체를 통해 이 노드 트리에 접근하여, 특정 노드를 선택, 생성, 변경, 제거할 수 있다.
+
+---
+
+2. 문서 객체 가져오기 (HTML 요소 선택)
+
+가장 기본이 되는 '요소 선택' 방법.
+
+- document.getElementById('id'):
+    - id 속성을 이용해 단 하나의 요소를 정확하게 선택한다.
+    - 2_문서객체가져오기1_id.html에서 시계(clock)를 선택할 때 사용함.
+- getElementsBy... (HTMLCollection 반환):
+    - getElementsByTagName('h1') , getElementsByClassName('clock1') , getElementsByName('gender')
+    - 조건에 맞는 모든 요소를 '배열과 유사한 목록(HTMLCollection)'으로 반환한다.
+    - 따라서 h1[0], h1[1]처럼 인덱스([index])를 사용해 개별 요소에 접근해야 함.
+- querySelector('선택자') (최신 방식):
+    - CSS 선택자(예: h1.header)를 사용해 일치하는 첫 번째 요소 하나만 가져온다.
+- querySelectorAll('선택자') (최신 방식):
+    - CSS 선택자를 사용해 일치하는 모든 요소를 '목록(NodeList)'으로 가져온다.
+
+---
+
+3. 문서 객체 생성 및 추가 (동적 생성)
+
+HTML 파일에 없던 요소를 JavaScript로 만들어 붙이는 기능.
+
+- 키워드: createElement, createTextNode, appendChild
+- 1) 정석 방식 (DOM 표준): 1_문서객체생성.html과 3_문서객체제거...html의 append() 함수에서 잘 보여 준다.
+    1. let h1 = document.createElement('h1'); : <h1> 태그(요소 노드)를 만든다.
+    2. let text = document.createTextNode('HEADER'); : 'HEADER'라는 텍스트 노드를 만든다.
+    3. h1.appendChild(text); : 텍스트 노드를 <h1> 태그의 자식으로 붙인다.
+    4. document.body.appendChild(h1); : <h1> 태그를 <body>의 자식으로 붙인다.
+- 2) 간편 방식 (innerHTML):
+    - document.body.innerHTML += '<h1>추가</h1>';
+    - 기존 HTML을 문자열로 덮어쓰거나 추가하는 방식이다. 간편하지만, 기존의 이벤트가 사라질 수 있어 주의.
+
+---
+
+4. 문서 객체 제거 (DOM 조작)
+
+- 키워드: parent.removeChild(child)
+- 개념: 노드를 제거할 때는 반드시 부모(parent) 객체에서 자식(child) 노드를 떼어내는 방식을 사용해야 한다.
+- 실습 적용 (3_문서객체제거...html):
+    - document.body.removeChild(h1[0]); (body가 부모, h1[0]이 자식)
+    - wrap.removeChild(h1[0]); (wrap이 부모, h1[0]이 자식)
+
+---
+
+5. 핵심 주의사항: 'Live' vs 'Static' 목록 (중요!)
+
+3_문서객체제거...html 파일의 removeAll() 함수는 매우 중요한 함정을 다룬다.
+
+- getElementsByTagName (Live):
+    - 이 함수가 반환하는 목록(HTMLCollection)은 '라이브(Live)'다.
+    - 즉, h1 태그가 DOM에서 제거되는 순간, h1 목록의 length가 실시간으로 줄어든다.
+    - 주석 처리한 for(let i=0 ; i<h1.length ; i++) 루프가 실패하는 이유. h1[0]을 지우면 h1[1]이 새 h1[0]이 되고 length도 줄어서, 루프가 절반만 돌고 멈춘다.
+    - 해결책: var cnt = h1.length;처럼 길이를 미리 저장하고, h1[0]만 cnt번 반복해서 제거하는 것이 올바른 방법.
+- querySelectorAll (Static):
+    - 이 함수가 반환하는 목록(NodeList)은 '정적(Static)'이다.
+    - 즉, 노드를 제거해도 목록의 length는 변하지 않는다.
+
+---
+
+6. window.onload의 중요성
+
+모든 실습 코드(quiz.html 제외)가 window.onload 나 <script>를 <body> 맨 끝에 둠.
+
+- 이유: JavaScript가 <head>에서 실행되는 시점에는 <body> 안의 <h1>이나 <div id="clock"> 태그가 아직 로드되지 않았다. window.onload는 HTML 문서가 모두 로드된 *후에* 스크립트를 실행하도록 보장하여, document.getElementById(...)가 null을 반환하는 오류를 막아준다.
+- (quiz.html은 window.onload가 필요했는데도 작동한 이유는, tds 변수를 전역으로 선언하고 window.onload로 색칠을 했기 때문.)

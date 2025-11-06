@@ -10,8 +10,9 @@
         window.onclick = function() { //onclick : 이벤트 속성 변수
             alert('click 했군');
         };
+        var chk = function(){};
         for(let key in window) {
-            if(key.substr(0,2)=='on') { //event를 걸 수 있는
+            if(key.substr(0,2)=='on' || key=='chk') { //event를 걸 수 있는
                 document.write(++cnt + '. ' + key + ':' + window[key] + '<br>');
             }
         }
