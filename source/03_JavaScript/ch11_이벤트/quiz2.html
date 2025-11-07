@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        window.onload = () => {
+            var btn = document.getElementsByTagName('img')[0];
+            btn.addEventListener('mouseup', function(){
+                this.src = 'ch11_img/but1.gif';
+            });
+            btn.addEventListener('mousedown', function(){
+                this.src = 'ch11_img/but2.gif';
+            });
+        };
+    </script>
+</head>
+<body>
+    <img src="ch11_img/but1.gif" alt="mouse up" />
+</body>
+</html>

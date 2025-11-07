@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+    <title></title>
+    <style></style>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script>
+        $(function() {
+            /* $.get(url, data, success) : 서버로부터 데이터를 가져오는(GET) HTTP 요청을 보내는 간편한 방법
+                url : 데이터를 요청할 서버의 주소(경로)
+                data : 서버에 데이터를 요청할 때 함께 보낼 '추가 정보'. 객체 또는 문자열 (? 로 붙음)
+                success : 서버로부터 요청이 성공적으로 완료되었을 때 실행될 콜백 함수.*/
+            /*  $.get(요청경로, callback(data, status){ 
+                data: 요청경로 url을 수행한 결과(<b>중복된 ID입니다.</b> / 가입 가능한 ID입니다.)
+                status: success/fail
+                })  */
+            $('button').click(function(){
+                // idConfirmNonExists.html?id=입력한id.trim() 요청한 결과를 span 출력
+                let id = $('input[name=id]').val().trim();
+                $.get('idConfirmNonExists.html?id='+id, function(data, status){
+                    if(status == 'success'){
+                        $('#idConfirmResult').html(data);
+                    } //if
+                }); //$.get
+            }); //button.click
+            $('input[name=id]').keyup(function() {
+                let id = $(this).val();
+                if(id.length<3) {
+                    $('#idConfirmResult').html('<b>ID는 3글자 이상</b>');
+                } else {
+                    $.get('idConfirmNonExists.html?id='+id, function(data, status){
+                        if(status == 'success'){
+                            $('#idConfirmResult').html(data);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    ID <input type="text" name="id" autocomplete="off">
+    <button>중복체크</button><br>
+    <span id="idConfirmResult"></span>
+</body>
+</html>

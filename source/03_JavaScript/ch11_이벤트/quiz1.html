@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        ul{overflow: hidden;}
+        li{float: left; list-style: none; margin: 3px;}
+    </style>
+    <script>
+        const overImg = ['ch11_img/0over.jpg', ' ch11_img/1over.jpg', ' ch11_img/2over.jpg', ' ch11_img/3over.jpg'];
+        const outImg = [' ch11_img/0out.jpg', ' ch11_img/1out.jpg', ' ch11_img/2out.jpg', ' ch11_img/3out.jpg'];
+        window.onload = () => {
+            // li 태그로 불러온 거
+            // var lis = document.getElementsByTagName('li'); 
+            // for (let i = 0; i < lis.length; i++) {
+            //     let img = lis[i].querySelector('img'); 
+            //     lis[i].addEventListener('mouseover', function () {
+            //         img.src = overImg[i];
+            //     });
+            //     lis[i].addEventListener('mouseout', function () {
+            //         img.src = outImg[i]; 
+            //     });
+            // }
+            // img 태그로 불러온 거
+            var imgs = document.getElementsByTagName('img');
+            for(let i = 0; i < imgs.length; i++) {
+                imgs[i].addEventListener('mouseover', function() {
+                    this.src = overImg[i];
+                });
+                imgs[i].addEventListener('mouseout', function() {
+                    this.src = outImg[i];
+                });
+            }
+        };
+        // Teacher's Code 1 : In-line
+        // var imgs;
+        // window.onload = () => imgs = document.getElementsByTagName('img');
+        // const mouseOver = idx => imgs[idx].setAttribute('src', overImg[idx]);
+        // const mouseOut = idx => imgs[idx].src = outImg[idx]; 
+        //
+        // Teacher's Code 2 : 기본 - element
+        // window.onload = () => {
+        // let imgs = document.getElementsByTagName('img');
+        // imgs[0].onclick = ()=>{alert(1);};
+        // //for(let idx=0 ; idx<imgs.length ; idx++){ // var로 쓰면 이벤트발생시 idx값이 4
+        // for(let idx in imgs){ // var로 쓰면 이벤트발생시 idx값이 4
+        //     imgs[idx].onmouseover = function(){
+        //         //this.src = overImg[i];
+        //         this.setAttribute('src', overImg[idx]);
+        //     };
+        //     imgs[idx].onmouseout = function(){
+        //         this.src = outImg[idx];
+        //         //this.setAttribute('src', outImg[i]);
+        //     };//이벤트
+        // }; // for
+        // };//window.onload
+        //
+        // Teacher's Code 3 : 기본 - querySelector
+        // window.onload = () => {
+        //     let imgs = document.querySelectorAll('img');
+        //     imgs.forEach( (data, idx) => {
+        //         data.onmouseover = function(){
+        //             // this.src = overImg[i];
+        //             this.setAttribute('src', overImg[idx]);
+        //         };
+        //         data.onmouseout = function(){
+        //             this.src = outImg[idx];
+        //             //this.setAttribute('src', outImg[i]);
+        //         };//이벤트
+        //     }); // forEach
+        // };//window.onload
+    </script>
+</head>
+<body>
+    <ul>
+        <li><a href="#"><img src="ch11_img/0out.jpg"/></a></li>
+        <li><a href="#"><img src="ch11_img/1out.jpg"/></a></li>
+        <li><a href="#"><img src="ch11_img/2out.jpg"/></a></li>
+        <li><a href="#"><img src="ch11_img/3out.jpg"/></a></li>
+    </ul>
+    <!--Teacher's Code 1 : In-line-->
+    <!-- <ul>
+        <li>
+            <a href="#">
+                <img src="ch11_img/0out.jpg" onmouseover="mouseOver(0)" onmouseout="mouseOut(0)"/>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <img src="ch11_img/1out.jpg" onmouseover="mouseOver(1)" onmouseout="mouseOut(1)"/>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <img src="ch11_img/2out.jpg" onmouseover="mouseOver(2)" onmouseout="mouseOut(2)"/>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <img src="ch11_img/3out.jpg" onmouseover="mouseOver(3)" onmouseout="mouseOut(3)"/>
+            </a>
+        </li>
+    </ul> -->
+</body>
+</html>
