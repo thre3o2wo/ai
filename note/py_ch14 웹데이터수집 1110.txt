@@ -1,3 +1,5 @@
+Ch. 14 웹 데이터 수집 - 1(정적)
+
 웹 데이터 수집 → 전처리 → 분석 → DL/ML
 
 #방법 1. 
@@ -20,6 +22,68 @@ select('선택자')	/ select_one('선택자')
 find_all(태그, 속성)	/ find(태그, 속성)
 
 
+---
+
+1. 웹 데이터 수집(Web Scraping)의 기초
+
+- 웹 크롤링 (Crawling): 프로그램이 인터넷을 돌아다니며 여러 페이지의 데이터를 자동으로 수집하는 행위.
+- 웹 스크래핑 (Scraping): 특정 웹 페이지에서 원하는 데이터만 추출하여 가공하는 기술.
+- 정적(Static) 웹 vs. 동적(Dynamic) 웹
+    - 정적 페이지 (이번 챕터의 대상): requests.get()으로 URL을 요청했을 때, HTML 원본 자체에 우리가 찾는 모든 데이터가 포함된 페이지. BeautifulSoup로 즉시 분석이 가능하다.
+    - 동적 페이지: HTML 뼈대만 오고, JavaScript가 나중에 API 등을 통해 데이터를 "불러와서" 화면을 그리는 페이지. (이 부분은 다음 챕터의 Selenium에서)
+
+---
+
+2. 방법 1: HTML 파싱 (정적 스크래핑)
+
+"사람이 브라우저로 보듯" HTML 문서를 가져와서, 그 안의 태그를 뒤져 원하는 텍스트나 속성을 뽑아내는 방식.
+
+🔑 핵심 라이브러리 (도구)
+	1. requests (요청 담당)
+	    - requests.get(url): 지정한 url에 접속 요청(HTTP GET)을 보내는 함수.
+	    - Response 객체: 요청의 결과를 담은 객체.
+	        - response.status_code: 200이면 성공, 404면 페이지 없음 등 응답 상태를 확인한다.
+	        - response.text (또는 .content): 서버가 보내준 HTML 원본 코드(문자열)가 담겨 있다.
+	2. BeautifulSoup (분석 및 추출 담당)
+	    - BeautifulSoup(response.text, 'html.parser'): requests로 가져온 HTML(response.text)을 파이썬이 이해할 수 있는 객체로 파싱(Parsing, 분석)한다.
+
+🎯 데이터 추출(Selection)의 두 가지 핵심 기술
+
+BeautifulSoup 객체(soup)가 만들어지면, 아래 두 가지 방식 중 하나를 사용해 원하는 요소를 찾는다.
+
+A. find() / find_all()
+
+- soup.find('tag'): 조건에 맞는 첫 번째 태그 하나를 찾는다.
+- soup.find_all('tag'): 조건에 맞는 모든 태그를 리스트로 가져온다.
+- 활용:
+    - soup.find('div', {'id': 'myId', 'class': 'myClass'}) (태그의 속성으로 찾기)
+    - .text / .string: 태그 안의 텍스트(내용)를 추출한다.
+    - .get('href') / .get('src'): 태그의 href나 src 같은 속성 값을 추출한다.
+
+B. select() / select_one() (CSS 선택자)
+
+- CSS 선택자(Selector): HTML의 요소를 가리키는 강력하고 간결한 문법. (매우 중요)
+- soup.select_one('selector'): CSS 선택자(selector)에 해당하는 첫 번째 요소를 찾는다.
+- soup.select('selector'): CSS 선택자에 해당하는 모든 요소를 리스트로 가져온다.
+- 주요 선택자 문법
+    - id: ID로 찾기 (예: main)
+    - .class: 클래스로 찾기 (예: .article)
+    - div span: div의 후손 중 span 찾기 (공백)
+    - div > span: div의 직계 자식인 span 찾기 (>)
+    - tag[attr=value]: 속성 값으로 찾기 (예: input[name=id])
+
+---
+
+3. 방법 2: 공공 API (JSON 데이터)
+
+웹 페이지(HTML)를 파싱하는 대신, 서버가 제공하는 데이터 전용 창구(API)를 이용하는 방식이다. (ch14_웹데이터수집1_정적_공공api.html 파일이 바로 웹 페이지가 API를 사용하는 예시. )
+
+- API (Application Programming Interface): 정해진 주소(URL)로 요청하면, HTML이 아닌 순수한 데이터(주로 JSON)를 반환하는 서버의 기능.
+- JSON (JavaScript Object Notation): 데이터를 주고받는 표준 형식. 파이썬의 딕셔너리(Dictionary) 및 리스트(List)와 거의 동일한 구조.
+- 수집 방법 (매우 간단):
+    1. requests.get(API_URL): API 주소로 요청을 보낸다.
+    2. response.json(): 서버가 보낸 JSON 응답을 파이썬의 딕셔너리/리스트로 즉시 변환해 준다.
+- 장점: BeautifulSoup로 HTML 태그를 뒤지는 복잡한 과정 없이, response.json()을 통해 원하는 데이터를 딕셔너리에서 key로 바로 꺼내 쓸 수 있어 매우 편리하고 안정적이다.
 
 + xml 파싱
 + 동적 웹크롤링
