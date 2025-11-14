@@ -1,0 +1,67 @@
+Ch. 14-2 웹 데이터 수집(동적)
+
+Python 웹 데이터 수집 - 동적 크롤링 핵심 요약
+
+정적 웹 크롤링의 requests와 BeautifulSoup만으로는 해결할 수 없는 '동적(Dynamic) 웹 페이지'의 데이터를 수집하는 방법 학습.
+
+---
+
+1. 동적(Dynamic) 웹 스크래핑의 필요성
+
+- 한계: requests.get()은 URL의 초기 HTML 원본만 가져온다.
+- 문제: 많은 최신 웹사이트들은 처음엔 뼈대(HTML)만 불러온 뒤, JavaScript가 API 통신(AJAX) 등을 통해 데이터를 나중에 불러와 화면을 완성한다.
+- 결과: requests와 BeautifulSoup만 사용하면, JavaScript가 실행되기 전의 텅 빈 뼈대만 보게 되어 원하는 데이터를 수집할 수 없다.
+
+---
+
+2. Selenium: 웹 브라우저 자동화
+
+이 문제를 해결하기 위해 Selenium(셀레니움)을 사용.
+
+- 핵심 개념: Selenium은 단순한 HTML 요청 도구가 아니라, Python 코드로 실제 웹 브라우저(Chrome, Edge 등)를 직접 제어하는 '웹 자동화 도구'.
+- 작동 원리: 실제 브라우저를 실행시키기 때문에, 페이지의 JavaScript가 모두 실행된 후의, 즉 사용자의 눈에 보이는 최종 완성된 화면을 기준으로 데이터를 수집할 수 있다.
+- 주요 용도: 동적 데이터 스크래핑, 웹 사이트 로그인/검색/클릭 등 자동화 테스트.
+
+---
+
+3. Selenium 핵심 키워드 및 기능
+
+WebDriver (웹 드라이버)
+
+- Python 코드와 실제 브라우저(Chrome, Edge 등)를 연결해주는 '다리' 또는 '엔진' 역할을 한다.
+- from selenium import webdriver
+- driver = webdriver.Chrome(): 크롬 브라우저 제어를 시작한다.
+
+페이지 제어 및 요소 탐색
+
+- driver.get(url): 해당 url로 브라우저가 접속하도록 명령. (JavaScript 로딩까지 기다림)
+- driver.find_element(By...) / driver.find_elements(By...):
+    - BeautifulSoup의 find/select와 유사하지만, Selenium 전용 방식이다.
+    - By 객체를 사용하여 탐색 기준을 명시한다. (예: By.ID, By.CLASS_NAME, By.CSS_SELECTOR, By.NAME 등)
+
+상호작용 (Interaction) - Selenium의 핵심
+
+- requests와 달리, 찾은 요소(Element)에 사용자 행동을 시킬 수 있다.
+- .send_keys('텍스트'): input 상자에 '텍스트'를 키보드로 입력한다.
+- .click(): 버튼이나 링크를 마우스로 클릭한다.
+
+대기 (Waiting)
+
+- JavaScript가 데이터를 불러오는 데 시간이 걸릴 수 있으므로, '기다림'이 필수.
+- time.sleep(초): 무조건 지정한 '초'만큼 기다리는 가장 간단하지만 비효율적인 방법이다.
+- WebDriverWait(driver, 초).until(...): (권장) 특정 요소가 나타날 때까지(최대 '초'만큼) 지능적으로 대기하는 '명시적 대기' 방법.
+
+최종 HTML 추출
+
+- driver.page_source: 모든 JavaScript가 실행된 후의 최종 HTML 소스를 문자열로 가져온다.
+
+---
+
+4. BeautifulSoup와의 연동 (실습 패턴)
+
+Selenium의 요소 탐색 기능(find_element)은 BeautifulSoup의 select보다 불편할 수 있다. 따라서 실습(ch14_웹데이터수집2_동적.ipynb)에서는 두 도구를 연동하는 효율적인 패턴을 사용한다.
+
+1. Selenium (제어/대기 담당): driver.get(url)로 접속하고, 필요시 .send_keys()나 .click()로 상호작용한다.
+2. Selenium (추출 담당): driver.page_source로 최종 HTML을 가져온다.
+3. BeautifulSoup (분석 담당): 이 최종 HTML(driver.page_source)을 BeautifulSoup(..., 'html.parser')에 넣어, soup.select() 등 익숙한 CSS 선택자로 데이터를 쉽게 파싱한다.
+4. 마무리: driver.quit()로 제어 중인 브라우저 종료.

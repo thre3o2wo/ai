@@ -38,7 +38,7 @@ find_all(태그, 속성)	/ find(태그, 속성)
 
 "사람이 브라우저로 보듯" HTML 문서를 가져와서, 그 안의 태그를 뒤져 원하는 텍스트나 속성을 뽑아내는 방식.
 
-🔑 핵심 라이브러리 (도구)
+핵심 라이브러리 (도구)
 	1. requests (요청 담당)
 	    - requests.get(url): 지정한 url에 접속 요청(HTTP GET)을 보내는 함수.
 	    - Response 객체: 요청의 결과를 담은 객체.
@@ -47,7 +47,7 @@ find_all(태그, 속성)	/ find(태그, 속성)
 	2. BeautifulSoup (분석 및 추출 담당)
 	    - BeautifulSoup(response.text, 'html.parser'): requests로 가져온 HTML(response.text)을 파이썬이 이해할 수 있는 객체로 파싱(Parsing, 분석)한다.
 
-🎯 데이터 추출(Selection)의 두 가지 핵심 기술
+데이터 추출(Selection)의 두 가지 핵심 기술
 
 BeautifulSoup 객체(soup)가 만들어지면, 아래 두 가지 방식 중 하나를 사용해 원하는 요소를 찾는다.
 
