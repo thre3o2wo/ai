@@ -1,0 +1,27 @@
+Ch. 3 JOIN - 연결
+
+여러 테이블에 흩어진 데이터를 연결하여 하나의 유의미한 정보로 만드는 것
+
+1. 내부 조인 (Inner Join / Equi Join)
+
+- 특징: 두 테이블 간에 조건이 일치하는 행만 반환.
+- Oracle 문법: WHERE t1.c1 = t2.c1
+- ANSI 문법: FROM t1 INNER JOIN t2 ON t1.c1 = t2.c1
+
+2. 외부 조인 (Outer Join)
+
+- 특징: 조건이 일치하지 않는 행도 포함하여 반환하며, 빈 값은 NULL로 채워집니다.
+- Oracle 문법: 데이터가 부족한 쪽에 (+) 기호 사용 (예: WHERE t1.c1 = t2.c1(+))
+- ANSI 문법: FROM t1 LEFT/RIGHT/FULL OUTER JOIN t2 ON ...
+
+3. 자체 조인 (Self Join)
+
+- 특징: 하나의 테이블을 자기 자신과 조인합니다. 별칭(Alias) 사용이 필수입니다.
+- Oracle 문법: FROM emp e, emp m
+- ANSI 문법: FROM emp e JOIN emp m
+
+4. 교차 조인 (Cross Join)
+
+- 특징: 가능한 모든 행의 조합(카티션 곱, M x N)을 반환합니다.
+- Oracle 문법: WHERE 절에 조인 조건 없음
+- ANSI 문법: CROSS JOIN
