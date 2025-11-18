@@ -1,0 +1,24 @@
+-- [VI] 인덱스 : SELECT 속도를 높이기 위해 사용
+DROP TABLE EMP01;
+CREATE TABLE EMP01 AS SELECT * FROM EMP;
+SELECT * FROM EMP01;
+INSERT INTO SELECT * FROM EMP01; 
+INSERT INTO EMP01 SELECT * FROM EMP01;      -- 데이터 뻥튀기 x1(28), x2(56)
+SELECT COUNT(*) FROM EMP01;                 -- EMP01의 행수
+INSERT INTO EMP01 (EMPNO, ENAME, DEPTNO) VALUES (1111, 'HONG', 50); 
+INSERT INTO EMP01 SELECT * FROM EMP01;      -- 91만 여 행수
+SELECT * FROM EMP01 WHERE ENAME='HONG';     -- 인덱스 생성 전 조회시간 : 0.016초
+-- 인덱스 생성
+CREATE INDEX IDX_EMP01_ENAME ON EMP01(ENAME); -- 인덱스 생성 소요 시간 : 0.388초)
+SELECT * FROM EMP01 WHERE ENAME='HONG';     -- 0.004초
+COMMIT;
+INSERT INTO EMP01 SELECT * FROM EMP01;      -- 20초
+SELECT COUNT(*) FROM EMP01;
+ROLLBACK;                                   -- 9.88초
+-- 인덱스 삭제
+DROP INDEX IDX_EMP01_ENAME;
+SELECT * FROM EMP01 WHERE ENAME='HONG';     -- 0.025초
+INSERT INTO EMP01 SELECT * FROM EMP01;      -- 1.643초
+ROLLBACK;                                   -- 0.099초
+-- 인덱스는 조회 성능만 개선시킨다.
+DROP TABLE EMP01;                           -- 테이블 삭제 시 인덱스도 같이 삭제됨.
