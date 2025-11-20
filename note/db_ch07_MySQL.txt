@@ -1,0 +1,73 @@
+Ch. 7 MySQL
+
+1. MySQL 기본 구조 및 운영 (Oracle과의 차이)
+
+- 데이터베이스 관리 단위:
+    - Oracle: 하나의 거대한 DB 인스턴스 안에 여러 '유저(Schema)'를 생성하여 공간을 나눈다.
+    - MySQL: 여러 개의 '데이터베이스(Database)'를 생성하여 관리. (유저 개념보다 DB 개념이 상위)
+- 작업 대상 선택:
+    - SHOW DATABASES;: 현재 존재하는 데이터베이스 목록을 확인한다.
+    - USE 데이터베이스명;: 작업할 데이터베이스를 선택한다. (Oracle의 conn과 유사하지만 세션 내에서 작업 공간만 이동)
+- 트랜잭션 (Auto Commit):
+    - Oracle: DML 수행 후 반드시 COMMIT을 해야 저장이 완료된다.
+    - MySQL: 기본적으로 Auto Commit이 켜져 있어, INSERT/UPDATE/DELETE 실행 즉시 반영된다. (설정으로 변경 가능)
+
+---
+
+2. 주요 데이터 타입 및 문법 차이
+
+ 구분 		Oracle 		MySQL 				비고
+ --- 		--- 		--- 				---
+ 가변 문자열 	VARCHAR2(n) 	VARCHAR(n) 			MySQL은 VARCHAR 표준 사용
+ 숫자형 		NUMBER(p,s) 	INT, FLOAT, DOUBLE 		정수는 INT를 주로 사용
+ 날짜형 		DATE 		DATE, DATETIME, TIMESTAMP 	날짜/시간 구분 가능
+ 주석 		-- (한 줄) 	-- 또는 # 			MySQL은 # 주석도 지원
+ Dummy 테이블 	FROM DUAL 필수 	FROM DUAL 생략 가능 		예: SELECT 1+1; 가능
+
+---
+
+3. 실습 핵심 기능 비교 (Oracle vs MySQL)
+
+A. 자동 증가값 (Sequence 대체)
+
+- Oracle: 별도의 SEQUENCE 객체를 생성하고 seq.NEXTVAL을 호출해야 한다.
+- MySQL: 테이블 생성 시 컬럼에 AUTO_INCREMENT 옵션을 준다.
+    - 실습 예시: id INT PRIMARY KEY AUTO_INCREMENT
+    - INSERT 시 해당 컬럼에 NULL이나 값을 넣지 않으면 자동으로 1씩 증가한다.
+
+B. 페이징 처리 (Top-N Query)
+
+- Oracle: ROWNUM을 사용하거나 서브쿼리를 복잡하게 중첩해야 한다.
+- MySQL: LIMIT 절을 사용하여 간편하게 처리한다.
+    - LIMIT 개수: 상위 N개 조회.
+    - LIMIT 시작인덱스, 개수: 특정 위치부터 N개 조회 (게시판 페이징에 최적).
+    - 실습 예시: SELECT * FROM member ORDER BY id DESC LIMIT 3, 2; (3번째 다음인 4번째부터 2개 조회 - 인덱스는 0부터 시작)
+
+C. 문자열 연결
+
+- Oracle: 연산자 사용 (예: ename '님').
+- MySQL: CONCAT() 함수 사용.는 논리 연산자(OR)로 쓰인다.
+    - 실습 예시: SELECT CONCAT(name, '의 직업은 ', job) ...
+
+D. NULL 처리
+
+- Oracle: NVL(컬럼, 값) 함수 사용.
+- MySQL: IFNULL(컬럼, 값) 함수 사용.
+
+E. 날짜 및 시간 함수
+
+- Oracle: SYSDATE (함수가 아닌 키워드처럼 사용).
+- MySQL:
+    - NOW() 또는 SYSDATE(): 현재 날짜와 시간 (년월일시분초).
+    - CURDATE() / CURRENT_DATE(): 현재 날짜 (년월일).
+    - CURTIME() / CURRENT_TIME(): 현재 시간 (시분초).
+    - DATE_FORMAT(날짜, '포맷'): 날짜 형식을 지정 (Oracle의 TO_CHAR 유사).
+        - 포맷: %Y(4자리 년도), %m(월), %d(일).
+
+---
+
+4. DDL 편의 기능
+
+MySQL은 객체 생성/삭제 시 오류를 방지하는 문법을 자주 사용한다. 실습 파일에서도 테이블 초기화 시 이 패턴을 사용함.
+
+- DROP TABLE IF EXISTS 테이블명;: 테이블이 존재할 때만 삭제하고, 없으면 에러 없이 넘어간다. (재실행 가능한 스크립트 작성 시 유용)
