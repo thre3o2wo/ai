@@ -1,0 +1,74 @@
+Ch. 4 tensorflow v1에서의 ML/DL
+
+TensorFlow 2.x 환경에서 1.x 버전을 강제로 활성화하여, "그래프 정의 → 세션 생성 → 실행"이라는 v1 고유의 실행 흐름을 학습.
+
+---
+1. TensorFlow v1 환경 설정
+
+TensorFlow 2.x 버전이 설치된 환경에서 1.x 버전의 코드를 실행하기 위한 호환성 설정.
+- 핵심 코드:
+	- import tensorflow.compat.v1 as tf: v1 모듈을 tf라는 이름으로 불러온다.
+	- tf.disable_v2_behavior(): v2의 즉시 실행(Eager Execution) 기능을 끄고, v1의 그래프 실행 방식을 활성화한다.
+
+---
+2. TF v1의 실행 메커니즘 (3단계 흐름)
+TensorFlow v1은 코드를 작성하는 시점에 계산이 되는 것이 아니라, 설계도(그래프)를 먼저 그리고 나중에 실행하는 방식.
+① 그래프 정의 (Build Graph): 변수, 상수, 연산 등을 정의한다. (이때는 아무런 계산도 일어나지 않음.)
+② 세션 생성 (Create Session): 그래프를 실행할 공간인 tf.Session()을 만든다.
+③ 세션 실행 (Run Session): sess.run()을 통해 실제 데이터를 흘려보내고 결과를 얻는다.
+- 실습 예시:
+	- node1 = tf.constant('Hello') (정의)
+	- sess = tf.Session() (세션 생성)
+	- sess.run(node1) (실행 및 출력)
+
+---
+3. 주요 텐서 객체 및 키워드
+실습에서 사용된 핵심 객체 3가지.
+① 상수 (Constant)
+- 값이 변하지 않는 노드.
+- 코드: tf.constant(10)
+② 변수 (Variable)
+- 학습 과정에서 계속 값이 업데이트(갱신)되는 노드. (가중치 W, 편향 b 등)
+- 초기화 필수: v1에서는 변수를 사용하기 전에 반드시 tf.global_variables_initializer()를 실행해줘야 한다.
+- 코드: W = tf.Variable(tf.random_normal([1]))
+③ 플레이스홀더 (Placeholder)
+- 그래프를 만들 때는 비어있지만, 실행(sess.run) 시점에 외부에서 데이터를 주입(Feeding)받는 그릇.
+- feed_dict: 실행 시점에 데이터를 딕셔너리 형태로 넣어주는 매개변수.
+- 코드:
+	- 정의: x = tf.placeholder(dtype=tf.float32)
+	- 실행: sess.run(..., feed_dict={x: [1, 2, 3]})
+
+---
+4. 선형 회귀 구현 (Linear Regression Workflow)
+위의 개념들을 종합하여 H = Wx + b 모델을 학습시키는 과정.
+
+A. 그래프 정의 (Build)
+1. 데이터 준비: x_data, y_data (NumPy 배열).
+2. 플레이스홀더: 입력 데이터가 들어올 x, y 정의.
+3. 변수 (W, b): 랜덤한 초기값으로 설정된 tf.Variable 정의.
+4. 가설 (Hypothesis): H = W * x + b 수식 정의.
+5. 비용 (Cost): tf.reduce_mean(tf.square(H - y)) (MSE: 평균 제곱 오차).
+6. 최적화 (Optimizer):
+	◦ optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.01)
+	◦ train = optimizer.minimize(cost) (비용을 최소화하는 연산 정의)
+
+B. 실행 및 학습 (Run)
+1. 세션 시작: sess = tf.Session()
+2. 변수 초기화: sess.run(tf.global_variables_initializer())
+3. 학습 루프:
+	◦ range(6001)만큼 반복하며 sess.run([train, cost, ...], feed_dict={...})을 실행합니다.
+	◦ 이 과정에서 train 노드가 실행되며 W와 b가 조금씩 업데이트된다.
+
+C. 예측 (Predict)
+학습이 끝난 후, 새로운 값을 넣어 결과를 확인한다.
+• 코드: sess.run(H, feed_dict={x: 5}) (x가 5일 때 H값 예측)
+
+---
+💡 참고사항 (Reference)
+
+TensorFlow v1 vs v2 차이점
+• v1: '그래프 정의'와 '실행'이 엄격히 분리되어 있어, sess.run() 없이는 결과를 볼 수 없음. (Lazy Execution)
+• v2: 파이썬처럼 코드를 작성하자마자 결과가 즉시 계산된다. (Eager Execution)
+• Session 삭제: v2에서는 Session이나 global_variables_initializer 같은 복잡한 개념이 사라지고 함수처럼 바로 실행된다.
+
+이번 실습은 "플레이스홀더에 데이터를 채워 넣고(feed_dict), 세션을 통해 연산을 수행(run)하여, 변수(Variable)를 업데이트한다"는 TF v1의 핵심 메커니즘을 이해하는 데 중점.
