@@ -93,3 +93,6 @@ ipykernel 설치
 	pip install python-dotenv    # 1.2.1
 	pip install python-decouple # 3.8
 	pip install langchain-anthropic # claude 모델 (1.2.0)
+	pip install openai
+	pip install matplotlib # pillow, numpy 포함
+	pip install streamlit 
