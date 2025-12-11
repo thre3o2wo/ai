@@ -1,0 +1,69 @@
+Ch. 5 XOR
+
+딥러닝의 가장 유명한 난제였던 XOR 문제를 해결하기 위해, 단층 퍼셉트론(Single Layer)이 아닌 다층 퍼셉트론(Multi Layer Perceptron, MLP)을 구축하는 과정.
+
+---
+
+1. 데이터 준비 (Dataset)
+
+단순한 논리 회로인 XOR 게이트의 입출력 데이터를 정의한다.
+
+- XOR(배타적 논리합): 입력값이 서로 다를 때만 1(참)이 되는 연산.
+- x_data: [[0, 0], [0, 1], [1, 0], [1, 1]] (입력 2개)
+- y_data: [[0], [1], [1], [0]] (정답)
+
+---
+
+2. 모델 구성 (Model Architecture)
+
+단순 선형 분리가 불가능한 XOR 문제를 해결하기 위해 은닉층(Hidden Layer)을 추가하여 깊은 신경망을 만든다.
+
+- 모델 생성: model = Sequential()
+- 입력층 & 은닉층 1:
+    - model.add(Dense(units=10, input_dim=2, activation='relu'))
+    - 입력이 2개(input_dim=2)이고, 출력이 10개인 층.
+    - ReLU: 은닉층의 활성화 함수로 주로 사용됨.
+- 은닉층 2 & 3:
+    - model.add(Dense(units=20, activation='relu'))
+    - model.add(Dense(10, 'relu'))
+    - 층을 더 쌓아서 모델의 표현력을 높인다.
+- 출력층:
+    - model.add(Dense(units=1, activation='sigmoid'))
+    - 최종 결과는 0 또는 1이어야 하므로 출력은 1개, 활성화 함수는 Sigmoid를 사용한다.
+
+---
+
+3. 모델 학습 설정 (Compile)
+
+모델이 어떻게 학습할지 규칙을 정한다.
+
+- model.compile(...)
+    - Loss (손실 함수): 'binary_crossentropy'
+        - 이진 분류 문제(0이냐 1이냐)이므로 이 함수를 사용한다.
+    - Optimizer (최적화): 'adam'
+        - 가장 성능이 좋고 무난하게 쓰이는 최적화 알고리즘.
+    - Metrics (평가 지표): ['binary_accuracy']
+        - 학습 도중 정확도를 모니터링한다.
+
+---
+
+4. 학습 및 시각화 (Training & Visualization)
+
+- 학습: hist = model.fit(x_data, y_data, epochs=300, verbose=2)
+    - 300번 반복 학습하며, 학습 과정의 기록(loss, accuracy 등)을 hist 변수에 저장한다.
+- 시각화: matplotlib을 사용하여 학습이 진행됨에 따라 Loss는 줄어들고 Accuracy는 올라가는 그래프를 그린다.
+
+---
+
+5. 평가 및 예측 (Evaluation & Prediction)
+
+- 평가: score = model.evaluate(x_data, y_data)
+    - 학습된 모델의 최종 손실값과 정확도를 확인.
+- 예측: model.predict(np.array([[0, 1]]))
+    - 새로운 입력(예: [0, 1])을 주었을 때, 1에 가까운 값(예: 0.9xxxx)이 나오는지 확인.
+
+---
+
+💡 핵심 요약
+
+"XOR 문제는 직선 하나로는 절대 나눌 수 없다"는 한계를 극복하기 위해, 여러 개의 Dense Layer(은닉층)와 ReLU 함수를 조합하여 구불구불한 경계선을 만들어내는 딥러닝의 기본 원리를 구현.
