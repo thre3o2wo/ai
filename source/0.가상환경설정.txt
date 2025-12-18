@@ -97,3 +97,25 @@ ipykernel 설치
 	pip install matplotlib # pillow, numpy 포함
 	pip install streamlit
 	pip install sounddevice scipy # 마이크 입력 녹음-전송
+
+※ 머신러닝 수업
+pip install dataprep # EDA 를 쉽게(0.4.5)
+
+※ 의사결정나무 모형의 트리 구조① - ml-dl-nlp환경
+conda install -c conda-forge graphviz # 의사결정나무 그래프 생성하는 도구
+pip install pydot # graphviz의 .dot데이터를 이미지로 변환
+dot -V (확인)
+
+※ 의사결정나무 모형의 트리 구조② - base환경(conda deactivate)
+conda install graphviz
+pip install pydot
+
+
+※ 자료불균형 처리 smote
+	pip install imbalanced-learn==0.10.1
+※ Boosting
+	* 설치 전 의존성 확인
+	pip install --dry-run xgboost==1.7.3
+	pip install xgboost==1.7.3
+	pip install lightgbm # 4.6.0
+	pip install catboost==1.2
