@@ -1,6 +1,10 @@
 .ipynb_checkpoints/
 .env
+.venv/
+.idea/
 __pycache__/
 downloads/
 IDE/
 lecNote/
+10_1stTeamProject/
+10_1stProject/
