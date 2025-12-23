@@ -1,0 +1,40 @@
+Chapter 8. MNIST 데이터와 DNN 기초
+
+1. 핵심 키워드
+
+- MNIST: 0~9까지의 손글씨가 담긴 28x28 픽셀 이미지 데이터셋. 머신러닝의 'Hello World' 격인 기본 예제.
+- DNN (Deep Neural Network): 입력층과 출력층 사이에 2개 이상의 은닉층(Hidden Layer)을 쌓은 깊은 신경망.
+- One-hot Encoding (원-핫 인코딩): 정답 라벨(0~9)을 확률 계산이 용이하도록 [0, 0, 1, 0...] 형태의 벡터로 변환하는 과정.
+- Softmax (소프트맥스): 3개 이상의 클래스를 분류할 때 사용하는 출력층 활성화 함수. 각 클래스에 속할 확률을 반환.
+
+2. 주요 개념 및 로직
+
+- 데이터 전처리 (Preprocessing)
+    - 정규화 (Normalization): 0~255 범위의 픽셀 값을 0~1 사이의 실수로 변환. 학습 속도를 높이고 최적화 과정을 안정화함 (x_train / 255.0).
+    - 평탄화 (Flattening): 2차원 이미지(28x28)를 1차원 배열(784)로 펼침. 기본 신경망(Dense Layer)은 1차원 데이터만 입력받기 때문.
+- 모델 컴파일 설정
+    - Loss Function: categorical_crossentropy. 다중 분류(Multi-class Classification) 문제의 표준 손실 함수.
+    - Optimizer: adam. 성능과 속도 면에서 가장 무난하게 쓰이는 최적화 알고리즘.
+
+3. 코드의 구성과 흐름
+
+딥러닝의 표준 5단계 절차로 구성.
+
+1. 데이터 로드: mnist.load_data()로 학습용(6만)과 테스트용(1만) 데이터 확보.
+2. 전처리:
+    - reshape(60000, 784): 차원 평탄화.
+    - astype('float32') / 255.0: 정규화.
+    - to_categorical(y_train, 10): 정답 라벨 원-핫 인코딩.
+3. 모델 설계: Sequential 모델 생성.
+    - 은닉층: Dense(64, relu) → Dense(32, relu)로 특징 추출.
+    - 출력층: Dense(10, softmax)로 10개 숫자 분류 확률 출력.
+4. 학습 (Train): model.fit() 실행.
+    - epochs=10: 전체 데이터 10회 반복 학습.
+    - batch_size=32: 32문제씩 풀고 가중치 갱신.
+5. 평가 (Evaluate):
+    - model.evaluate(): 테스트 데이터 정확도 검증.
+    - model.predict() & np.argmax(): 실제 예측값 추출 및 정답 확인.
+
+4. 참고 개념 (심화)
+
+- Validation Split: fit() 함수 내 validation_split=0.2 옵션은 학습 데이터의 20%를 떼어내어 검증용(모의고사)으로 쓴다는 의미. 모델이 학습 데이터만 외우는 과적합(Overfitting) 여부를 실시간으로 체크할 수 있다.

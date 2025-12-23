@@ -1,0 +1,43 @@
+Ch. 10 IRIS 다중분류 (원핫인코딩 O)
+
+Iris 데이터셋을 사용하여, 정답(Target) 변수를 원-핫 인코딩(One-Hot Encoding) 형태로 변환한 뒤 학습시키는 정석적인 방법을 연습.
+
+---
+
+[Chapter 10] Iris 품종 예측 (다중 분류 - 원핫인코딩 적용)
+
+1. 핵심 키워드
+
+- Iris Dataset: 꽃받침(Sepal)과 꽃잎(Petal)의 길이/너비 정보를 이용해 3가지 품종(Setosa, Versicolor, Virginica)을 분류하는 데이터셋 .
+- One-Hot Encoding: 'Setosa' 같은 문자열 라벨을 컴퓨터가 계산하기 편하도록 [1, 0, 0] 형태의 벡터로 변환하는 것. 이번 챕터의 핵심 전처리 방식.
+- Softmax: 3개의 품종 중 어디에 속할지 확률을 계산하기 위해 출력층에 사용하는 활성화 함수.
+- Categorical Crossentropy: 타깃 변수가 원-핫 인코딩된 상태([0, 1, 0])일 때 사용하는 손실 함수.
+
+2. 주요 개념 및 로직
+
+- 데이터 구조 파악:
+    - 입력(Input): 4개 Feature (꽃받침 길이, 너비, 꽃잎 길이, 너비).
+    - 출력(Output): 3개 Class (품종). 따라서 모델의 마지막 출력층 노드 수는 3이 된다.
+- 인코딩 2단계:
+    1. Label Encoding: 문자열('setosa') → 정수(0).
+    2. One-Hot Encoding: 정수(0) → 벡터([1, 0, 0]). 이를 통해 모델은 각 클래스 간의 거리를 동등하게 인식한다.
+
+3. 코드의 구성과 흐름
+
+1. 데이터 로드 및 확인:
+    - sns.load_dataset('iris') 등을 통해 데이터를 불러오고 pairplot으로 특성 간 상관관계 시각화.
+2. 전처리 (핵심):
+    - X (독립변수): StandardScaler 등을 사용하여 데이터 스케일링.
+    - Y (종속변수): to_categorical (Keras) 또는 get_dummies (Pandas)를 사용하여 원-핫 인코딩 수행.
+3. 모델 설계:
+    - Input(4) → Dense(은닉층) → Dense(3, activation='softmax').
+    - 최종 출력 노드가 3개인 점이 중요.
+4. 학습 설정:
+    - loss='categorical_crossentropy': 원-핫 인코딩된 타깃과 모델의 예측 확률 분포 간의 차이를 계산.
+5. 평가 및 예측:
+    - model.predict() 결과는 [0.1, 0.8, 0.1] 같은 확률로 나온다.
+    - argmax(axis=1)을 사용하여 가장 높은 확률의 인덱스를 찾아 실제 품종으로 해석한다.
+
+4. 참고 개념
+
+- Sparse Categorical Crossentropy: 만약 타깃 변수를 원-핫 인코딩하지 않고 정수(0, 1, 2) 그대로 사용하고 싶다면, 손실 함수만 이것으로 변경하면 됨. (챕터 11 내용)
