@@ -5,8 +5,11 @@
 {% block content %}
     <h1 onclick="location='{% url 'index' %}'">처음으로</h1> 
     <a href="/wordcnt/about">도움말</a>
-    <form action="/wordcnt/result" method="get">
-        <textarea name="fulltxt" cols="40" rows="10"></textarea>
-        <input type="submit" value="단어계산">
+    {% comment %} <form action="/wordcnt/result" method="get"> {% endcomment %}
+    <form action="{% url 'wordcnt:result' %}" method='post'>
+        {% comment %} post 방식으로 넘길 때, 보안 key를 추가해야 함 {% endcomment %}
+        {% csrf_token %} {% comment %}csrf_token 자동 생성{% endcomment %}
+        <textarea name="fulltxt" cols="40" rows="5"></textarea>
+        <input type="submit" value="단어 계산">
     </form>
 {% endblock content %}
