@@ -14,8 +14,8 @@ class Migration(migrations.Migration):
             name="Student",
             fields=[
                 ("id", models.AutoField(primary_key=True, serialize=False)),
-                ("name", models.CharField(max_length=64, unique=True)),
-                ("major", models.CharField(blank=True, max_length=64, null=True)),
+                ("name", models.CharField(max_length=100, unique=True)),
+                ("major", models.CharField(blank=True, max_length=100, null=True)),
                 ("age", models.IntegerField(default=20)),
                 ("grade", models.IntegerField(default=1)),
             ],
