@@ -32,7 +32,7 @@
             <!-- 오른쪽 메뉴 -->
             <ul class="navbar-nav">
                 {% if not user.is_authenticated %}
-                    {% comment %} 로그인상태가 아닐때 {% endcomment %}
+                    {% comment %} 로그인 상태가 아닐 때 {% endcomment %}
                     {% comment %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'signup' %}">회원 가입</a>
