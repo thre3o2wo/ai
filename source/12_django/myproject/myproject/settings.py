@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     # 생성한 app 등록
     "blog", 
     "accounts",
+    "book",
+    "django.contrib.humanize", # intcomma(세 자리마다 comma) 필터 사용
 ]
 
 MIDDLEWARE = [
