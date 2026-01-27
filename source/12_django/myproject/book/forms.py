@@ -6,22 +6,26 @@ def min_length_2_validator(value):
     if len(value) < 2:
         raise forms.ValidationError("2글자 이상 입력하세요.")
 
-class BookForm(forms.Form):
-    title = forms.CharField(label="책 제목")
-    author = forms.CharField(label="글쓴이", validators=[min_length_2_validator])
-    publisher = forms.CharField(label="출판사", required=False)
-    sales = forms.IntegerField(
-        label="판매가", 
-        initial=1000, 
-        validators=[
-            MinValueValidator(0), 
-            MaxValueValidator(100000)
-        ]
-    )
-    def save(self, commit=True):
-        book = Book(**self.cleaned_data) # cleaned_data 검증 완료된 입력 데이터
-        if commit:
-            book.save()
-        return book
+# class BookForm(forms.Form):
+#     title = forms.CharField(label="책 제목")
+#     author = forms.CharField(label="글쓴이", validators=[min_length_2_validator])
+#     publisher = forms.CharField(label="출판사", required=False)
+#     sales = forms.IntegerField(
+#         label="판매가", 
+#         initial=1000, 
+#         validators=[
+#             MinValueValidator(0), 
+#             MaxValueValidator(100000)
+#         ]
+#     )
+#     def save(self, commit=True):
+#         book = Book(**self.cleaned_data) # cleaned_data 검증 완료된 입력 데이터
+#         if commit:
+#             book.save()
+#         return book
     
-# class BookModelForm(forms.ModelForm): # model 확인해 form 지정
+class BookModelForm(forms.ModelForm): # model 확인해 form 지정
+    class Meta:
+        model = Book
+        # fields = '__all__' # auto 필드가 없으면 이걸 쓰겠지만
+        fields = ['title', 'author', 'publisher', 'sales']

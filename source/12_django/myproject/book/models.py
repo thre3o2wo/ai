@@ -53,7 +53,8 @@ class Book(models.Model): # book_book 테이블
         return f"{self.id}. {self.title} : {self.author} 저 {self.sales}원 from {self.ip}"
     
     def get_absolute_url(self): # item 수정하거나 삭제 후 이동할 요청경로 지정
-        return reverse("book:list") # book:list 요청경로 url
+        return reverse("book:list") # book:list 요청경로 url ("/book/")
+        # return reverse("book:edit", args=[self.id]) # /book/<id>/edit
     
     class Meta:
         ordering = ['-publication_date']
