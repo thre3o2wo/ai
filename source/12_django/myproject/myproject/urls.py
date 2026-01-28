@@ -22,7 +22,8 @@ from book import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", lambda request : redirect("blog:list")),
+    path("", lambda request : redirect("article:list")),
     path("blog/", include("blog.urls")),
     path("book/", include("book.urls")),
+    path("article/", include("article.urls")), # v1. w/o 검색 기능
 ]

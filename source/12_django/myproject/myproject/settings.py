@@ -37,8 +37,8 @@ SECRET_KEY = os.getenv("SECRET_KEY", "myprojectsecretkey")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+# ALLOWED_HOSTS = ['192.168.0.227', '127.0.0.1', 'localhost'] # ip 통한 접근, local 접근
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1").split(',')
 
 # Application definition
 
@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "accounts",
     "book",
     "django.contrib.humanize", # intcomma(세 자리마다 comma) 필터 사용
+    "article", # GenericView 이용 - v1. paging 처리 / v2. 검색 기능  / v3. 파일 첨부(ch08)
 ]
 
 MIDDLEWARE = [
