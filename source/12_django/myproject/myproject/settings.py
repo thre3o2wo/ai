@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "book",
     "django.contrib.humanize", # intcomma(세 자리마다 comma) 필터 사용
     "article", # GenericView 이용 - v1. paging 처리 / v2. 검색 기능  / v3. 파일 첨부(ch08)
+    "filetest",
 ]
 
 MIDDLEWARE = [
@@ -147,3 +148,9 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# 업로드한 파일이 저장될 폴더와 액세스 url
+# /media/folder/a.png url로 접근 => _media/folder/a.png저장
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "_media")
+# myproject/urls.py에 MEDIA_URL와 ROOT연결
